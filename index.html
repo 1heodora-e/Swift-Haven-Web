@@ -64,7 +64,7 @@
             </li>
 
             <li>
-              <a href="#about" class="navbar-link" data-nav-link>About</a>
+              <a href="#mission" class="navbar-link" data-nav-link>About</a>
             </li>
 
             <li>
@@ -148,7 +148,7 @@
         <!-- 
         - #MISSION/VISION
       -->
-        <section class="section service" id="services" aria-label="service">
+        <section class="section service" id="mission" aria-label="service">
           <div class="container">
             <p class="section-subtitle text-center">OUR MISSION & VISION</p>
 
@@ -464,6 +464,79 @@
               />
             </a>
           </div>
+        </section>
+
+        <section id="donate">
+            <!-- 
+        - #DONATE -->
+        <h1 class="Donate-title">JOIN US & MAKE A DIFFERENCE</h1>
+        <div class="donation-form-container">
+          <div class="Donate" id="Donate">
+            <form action="your_donation_processing_url" method="POST">
+              <div class="row">
+                  <div class="col">
+                      <h3 class="title">donor information</h3>
+                      <div class="inputBox">
+                          <span>full name :</span>
+                          <input type="text" name="full_name" required>
+                      </div>
+                      <div class="inputBox">
+                          <span>email :</span>
+                          <input type="email" name="email" required>
+                      </div>
+                      <div class="inputBox">
+                          <span>address :</span>
+                          <input type="text" name="address" required>
+                      </div>
+                      <div class="inputBox">
+                          <span>city :</span>
+                          <input type="text" name="city" required>
+                      </div>
+                      <div class="flex">
+                          <div class="inputBox">
+                              <span>state :</span>
+                              <input type="text" name="state" required>
+                          </div>
+                          <div class="inputBox">
+                              <span>zip code :</span>
+                              <input type="text" name="zip_code" required>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col">
+                      <h3 class="title">donation information</h3>
+                      <div class="inputBox">
+                          <span>donation amount :</span>
+                          <input type="number" name="donation_amount" min="1" required>
+                      </div>
+                      <div class="inputBox">
+                          <span>payment method :</span>
+                          <select name="payment_method" required>
+                              <option value="credit_card">Credit Card</option>
+                              <option value="paypal">PayPal</option>
+                              <option value="other">Other</option>
+                          </select>
+                          <img src="/assets/images/card_img.png" alt="">
+                      </div>
+                      <div class="inputBox">
+                          <span>card details (for credit card only) :</span>
+                          <input type="text" name="card_number" placeholder="1111-2222-3333-4444" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}" title="Please enter a valid credit card number in the format XXXX-XXXX-XXXX-XXXX" maxlength="19">
+                      </div>
+                      <div class="flex">
+                          <div class="inputBox">
+                              <span>expiration date (for credit card only) :</span>
+                              <input type="month" name="expiration_date" required>
+                          </div>
+                          <div class="inputBox">
+                              <span>CVV (for credit card only) :</span>
+                              <input type="text" name="cvv" placeholder="1234" maxlength="4">
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <input type="submit" value="Donate" class="submit-btn">
+          </form>
+        </div>
         </section>
 
         <!-- 

@@ -611,7 +611,122 @@ body {
 .partner-logo:is(:hover, :focus) .color,
 .partner-logo .gray { display: block; }
 
+/*-----------------------------------*\
+  #DONATE
+\*-----------------------------------*/
+.donation-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.Donate-title{
+  text-align: center;
+  text-decoration: underline;
+  color: rgb(232, 70, 97);
+}
 
+.Donate{
+  font-family: var(--ff-poppins);
+  font-size: 10px;
+  margin:0; padding:0;
+  margin-bottom: 90px;
+  box-sizing: border-box;
+  outline: none; border:none;
+  text-transform: capitalize;
+  transition: all .2s linear;
+}
+
+.Donate {
+  display: flex;
+  width: 100%;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+  min-height: 100vh;
+  background: url(/assets/images/SH-backdrop.png);
+  background-size: cover; /* Adjust the zoom level to cover the entire container */
+  background-position: center; /* Center the background image */
+}
+
+
+.Donate form{
+  display: flex;
+  flex-wrap: wrap;
+  padding:20px;
+  width:700px;
+  background: #fff;
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  align-content: center;
+}
+
+.Donate form .row{
+  display: flex;
+  flex-wrap: wrap;
+  gap:15px;
+}
+
+.Donate form .row .col{
+  flex:1 1 250px;
+}
+
+.Donate form .row .col .title{
+  font-size: 20px;
+  color:#333;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.Donate form .row .col .inputBox{
+  margin:15px 0;
+}
+
+.Donate form .row .col .inputBox span{
+  margin-bottom: 10px;
+  display: block;
+}
+
+.Donate form .row .col .inputBox input{
+  width: 100%;
+  border:1px solid #ccc;
+  padding:10px 15px;
+  font-size: 15px;
+  text-transform: none;
+}
+
+.Donate form .row .col .inputBox input:focus{
+  border:1px solid #000;
+}
+
+.Donate form .row .col .flex{
+  display: flex;
+  gap:15px;
+}
+
+.Donate form .row .col .flex .inputBox{
+  margin-top: 5px;
+}
+
+.Donate form .row .col .inputBox img{
+  height: 34px;
+  margin-top: 5px;
+  filter: drop-shadow(0 0 1px #000);
+}
+
+.Donate form .submit-btn{
+  width: 100%;
+  padding:12px;
+  font-size: 17px;
+  background: rgb(232, 70, 97);
+  color:#fff;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.Donate form .submit-btn:hover{
+  background: black;
+}
 
 
 
