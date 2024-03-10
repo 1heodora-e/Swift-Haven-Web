@@ -758,7 +758,7 @@ body {
 }
 
 .faq-card .card-action {
-  --action-bg: var(--go-green_8);
+  --action-bg: var(--white);
   --color: var(--granite-gray);
 
   background-color: var(--action-bg);
@@ -773,7 +773,7 @@ body {
 }
 
 .faq-card .card-action:is(:hover, :focus, .active) {
-  --action-bg: var(--go-green);
+  --action-bg: rgb(232, 70, 97);;
   --color: var(--white);
 }
 
