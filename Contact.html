@@ -4,6 +4,38 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contact</title>
+    <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
-  <body></body>
+  <body>
+    <section class="contact" id="contact">
+      <strong class="contact-header"> CONTACT US</strong>
+
+      <form action="" method="POST">
+        <div class="input-box">
+          <input type="text" name="Full_Name" placeholder="Full Name" />
+          <input
+            type="email"
+            name="Email_Address"
+            placeholder="Email Address"
+          />
+        </div>
+        <div class="input-box">
+          <input
+            type="number"
+            name="Mobile_Number"
+            placeholder="Mobile Number"
+          />
+          <input type="text" name="Email_Subject" placeholder="Email Subject" />
+        </div>
+        <textarea
+          name="Your_Message"
+          id=""
+          cols="30"
+          rows="10"
+          placeholder="Your Message"
+        ></textarea>
+        <input type="submit" value="Send Message" class="submit-btn" />
+      </form>
+    </section>
+  </body>
 </html>
