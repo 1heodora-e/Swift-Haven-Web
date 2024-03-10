@@ -221,7 +221,7 @@ body {
 }
 
 .btn-primary {
-  background-color: var(--go-green);
+  background-color: rgb(232, 70, 97);
   color: var(--white);
 }
 
@@ -249,7 +249,7 @@ body {
 .text-center { text-align: center; }
 
 .section-subtitle {
-  color: var(--go-green);
+  color: rgb(232, 70, 97);
   font-weight: var(--fw-500);
 }
 
@@ -349,7 +349,7 @@ body {
   transition: var(--transition-1);
 }
 
-.navbar-link:is(:hover, :focus) { color: var(--go-green); }
+.navbar-link:is(:hover, :focus) { color:rgb(232, 70, 97); }
 
 .overlay {
   position: fixed;
@@ -375,7 +375,7 @@ body {
 \*-----------------------------------*/
 
 .hero {
-  background-color: var(--mint-cream);
+  background-color: white;
   padding-block-start: calc(var(--section-padding) + 50px);
   text-align: center;
   overflow: hidden;
@@ -387,7 +387,7 @@ body {
 }
 
 .hero-subtitle {
-  color: var(--go-green);
+  color: rgb(232, 70, 97);
   font-size: var(--fs-12);
   font-weight: var(--fw-500);
   max-width: max-content;
@@ -400,7 +400,7 @@ body {
   left: -20px;
   width: 15px;
   height: 2px;
-  background-color: var(--go-green);
+  background-color: rgb(232, 70, 97);
 }
 
 .hero-title { margin-block: 10px 15px; }
@@ -410,7 +410,7 @@ body {
 .hero .btn-group { margin-block-start: 40px; }
 
 .hero .btn-icon {
-  background-color: var(--go-green);
+  background-color: rgb(232, 70, 97);
   color: var(--white);
   font-size: 20px;
   padding: 20px;
@@ -419,12 +419,12 @@ body {
 }
 
 @keyframes pulse {
-  0% { box-shadow: 0 0 0 0 var(--go-green); }
+  0% { box-shadow: 0 0 0 0 rgb(232, 70, 97); }
   100% { box-shadow: 0 0 0 20px transparent; }
 }
 
 .hero .flex-btn .span {
-  color: var(--go-green);
+  color: rgb(232, 70, 97);
   font-size: var(--fs-9);
   font-weight: var(--fw-600);
 }
@@ -480,7 +480,7 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background-color: var(--go-green);
+  background-color: rgb(232, 70, 97);
 }
 
 .about .btn-group { justify-content: flex-start; }
@@ -488,12 +488,12 @@ body {
 .about .btn-group .flex-btn { gap: 10px; }
 
 .about .btn-icon ion-icon {
-  color: var(--go-green);
+  color: rgb(232, 70, 97);
   font-size: 40px;
 }
 
 .about .btn-group .span {
-  color: var(--go-green);
+  color: rgb(232, 70, 97);
   font-family: var(--ff-cuprum);
   font-size: var(--fs-6);
   font-weight: var(--fw-600);
@@ -523,7 +523,7 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--go-green);
+  background-color: rgb(232, 70, 97);
   transition: var(--transition-2);
 }
 
@@ -563,7 +563,7 @@ body {
   transition: var(--transition-2);
 }
 
-.features-card:hover { background-color: var(--go-green); }
+.features-card:hover { background-color: rgb(232, 70, 97); }
 
 .features-card .card-number {
   position: absolute;
@@ -580,7 +580,7 @@ body {
   transition: var(--transition-1);
 }
 
-.features-card:hover .card-number { color: var(--go-green); }
+.features-card:hover .card-number { color: rgb(232, 70, 97); }
 
 .features-card .card-title {
   font-size: var(--fs-6);
@@ -752,7 +752,7 @@ body {
 }
 
 .faq-card {
-  background-color: var(--go-green_5);
+  background-color: white;
   border-radius: var(--radius-5);
   overflow: hidden;
 }
@@ -1115,17 +1115,17 @@ body {
 
   .header .btn-outline {
     display: block;
-    color: var(--go-green);
+    color: rgb(232, 70, 97);
     font-weight: var(--fw-600);
     text-transform: uppercase;
-    border: 1px solid var(--go-green);
+    border: 1px solid rgb(232, 70, 97);
     padding: 7px 18px;
     transition: var(--transition-1);
   }
 
   .header .btn-outline:is(:hover, :focus) {
-    background-color: var(--go-green);
-    color: var(--white);
+    background-color: rgb(232, 70, 97);
+    color: white;
   }
 
 
