@@ -465,9 +465,8 @@ body {
 .about-list { margin-block-end: 50px; }
 
 .about-list .has-before {
-  font-family: var(--ff-cuprum);
-  font-size: var(--fs-8);
-  font-weight: var(--fw-600);
+  font-family: var(--ff-poppins);
+  font-size: 16px;
   padding-inline-start: 20px;
   line-height: 1.5;
 }
