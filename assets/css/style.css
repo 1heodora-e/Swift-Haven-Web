@@ -726,6 +726,30 @@ body {
 .Donate form .submit-btn:hover{
   background: black;
 }
+/*-----------------------------------*\
+  #CHAT WITH LOLA
+\*-----------------------------------*/
+.Lola-text{
+  background-color: rgb(232, 70, 97);
+  font-size: 1.5em;
+  text-align: justify;
+  border-style: solid;
+  border-radius: 1em;
+  padding: 1.5em;
+  color: white;
+}
+
+video {
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 80%;
+  margin: 4em 4em 1em 30%;
+}
+.Lola-p{
+  margin: 1em 20% 2em;
+}
+
 
 
 
@@ -1338,5 +1362,16 @@ body {
    */
 
   .faq-card .card-action.active + .card-content { max-height: 200px; }
+
+  video {
+    top: 0;
+    left: 0;
+    width: 75%;
+    height: 20%;
+    margin: 4em 4em 2em 40%;
+  }
+  .Lola-p{
+    margin: 2em 30% 2em;
+  }
 
 }
