@@ -176,7 +176,7 @@ body {
   opacity: 1;
   transform: translateY(0);
 }
-.has-before,
+.has-before
 .has-after {
   position: relative;
   z-index: 1;
@@ -921,6 +921,9 @@ video {
 .footer {
   background-color: black;
   color: var(--cultured);
+}
+.footer-top section {
+  padding-bottom: 8em;
 }
 
 .footer-top .container {
