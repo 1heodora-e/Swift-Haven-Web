@@ -168,14 +168,14 @@ body {
 
 .section { 
   padding-block: var(--section-padding);
-  transform: translateX(100px); /* Initially off-screen */
-  transition: opacity 4s ease-in-out, transform 2s ease-in-out;
+  opacity: 0; /* Initially hidden */
+  transform: translateY(100px); /* Initially off-screen */
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
 .active {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(0);
 }
-
 .has-before,
 .has-after {
   position: relative;
