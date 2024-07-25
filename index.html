@@ -863,7 +863,7 @@
   -->
 
     <footer class="footer">
-      <div class="footer-top section">
+      <div class="footer-top section" style="margin-bottom: 8em">
         <div class="container">
           <div class="footer-brand">
             <a href="#" class="logo">Swift Haven</a>
@@ -874,7 +874,8 @@
             </p>
 
             <form
-              action="info.swifthaven@gmail.com"
+              name="submit-to-google-sheet"
+              action=""
               class="newsletter-form"
               method="post"
             >
@@ -1002,5 +1003,18 @@
       nomodule
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
+
+    <script>
+      const scriptURL =
+        "https://script.google.com/macros/s/AKfycbx3SzHzpPOmpuTWjSgt7p9N7lM8vmXLU5yANvKcC7fmeKhQeyH-smazubwxpVuhDxzJfg/exec";
+      const form = document.forms["submit-to-google-sheet"];
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: "POST", body: new FormData(form) })
+          .then((response) => console.log("Success!", response))
+          .catch((error) => console.error("Error!", error.message));
+      });
+    </script>
   </body>
 </html>
