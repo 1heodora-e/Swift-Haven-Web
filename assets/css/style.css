@@ -166,7 +166,15 @@ body {
 
 .container { padding-inline: 15px; }
 
-.section { padding-block: var(--section-padding); }
+.section { 
+  padding-block: var(--section-padding);
+  transform: translateX(100px); /* Initially off-screen */
+  transition: opacity 4s ease-in-out, transform 2s ease-in-out;
+}
+.active {
+  opacity: 1;
+  transform: translateX(0);
+}
 
 .has-before,
 .has-after {
