@@ -1,27 +1,55 @@
-# NAME AND INTRODUCTION OF THE PROJECT
-## HOOLIX - DIGITAL AGENCY WEBSITE :
-I have designed a template for a digital agency website in which there is features like Home
-About
-Services
-Features
-Blog
-Contact Us
+# SWIFT-HAVEN WEBSITE
 
-# TECH STACK :
-HTML , CSS and JAVASCRIPT 
+# LIVE: https://swift-haven.vercel.app/
 
-# SNAPSHOT OF THE WEBSITE:
-![hoolix](https://user-images.githubusercontent.com/84632701/219935740-d50f5965-5214-4277-afcd-dad1da531444.png)
+swift Haven is a social enterprise based in Rwanda, and currently focuses on the FEMTECH sector, swift-haven website serves as a platform to provide educational knowledge, and period resources to young girls and women across Africa to help battle the issue of period poverty
 
+## Features
 
+- AI period tracker
+- Access to Newsletter to send weekly educational and resourceful period contents
+- Access to out partner companies and their portfolio
 
-# CONTRIBUTED BY:
-ALISHA BHARTI
+## Technologies Used
 
-Hope,everyone would find it useful.
+- HTML
+- CSS
+- JavaScript
 
+## Screenshots
 
+<img width="960" alt="image" src="/assets/images/swift.png">
 
+## Getting Started
 
+To run the swift-haven website locally, follow these steps:
 
+1. **Clone the repository**:
 
+```bash
+git clone https://github.com/Chidera0001/Swift-Haven-Web.git
+```
+
+2.  **Open your IDE (Vs Code), and Navigate to the project directory**:
+    Open the terminal on Vs code (Click on the three dots on the top and select new terminal)
+    Then type in the bash script below to navigate to the project directory
+
+```bash
+cd Swift-Haven-Web
+```
+
+3.  Open the **index.html** file in your preferred web browser or in VS Code click on **Go Live** to open with live server.
+
+4.  Start exploring the **Swift-Haven** website.
+
+## Contributing
+
+Contributions to the Swift-Haven project are welcome and encouraged! If you encounter any issues or have suggestions for improvement, please raise an issue.
+
+If you would like to contribute code to the project, please follow these steps:
+
+1.  Fork the repository.
+2.  Create a new branch for your feature or bug fix.
+3.  Make your changes and commit them.
+4.  Push your changes to your forked repository.
+5.  Submit a pull request to the main repository.
