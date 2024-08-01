@@ -2,13 +2,14 @@
 
 # LIVE: https://swift-haven.vercel.app/
 
-swift Haven is a social enterprise based in Rwanda, and currently focuses on the FEMTECH sector, swift-haven website serves as a platform to provide educational knowledge, and period resources to young girls and women across Africa to help battle the issue of period poverty
+Swift Haven is a social enterprise based in Rwanda, and currently focuses on the FEMTECH sector, swift-haven website serves as a platform to provide educational knowledge, and period resources to young girls and women across Africa to help battle the issue of period poverty
 
 ## Features
 
 - AI period tracker
 - Access to Newsletter to send weekly educational and resourceful period contents
-- Access to out partner companies and their portfolio
+- Contact section to reach us with complaints and contributions
+- Access to out partner companies and their portfolio, and more resources
 
 ## Technologies Used
 
