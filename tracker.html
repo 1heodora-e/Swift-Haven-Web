@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Period Tracker</title>
+  <link rel="stylesheet" href="/assets/css/tracker.css">
+</head>
+<body>
+  <div class="container">
+    <h1>My Period Tracker</h1>
+    <div class="input-section">
+      <label for="start-date">Start Date:</label>
+      <input type="date" id="start-date">
+      <label for="end-date">End Date:</label>
+      <input type="date" id="end-date">
+      <label for="symptoms">Symptoms:</label>
+      <input type="text" id="symptoms" placeholder="e.g., cramps, mood swings">
+      <button id="add-entry">Add Entry</button>
+    </div>
+    <div class="prediction-section">
+      <h2>Prediction</h2>
+      <p id="prediction">Not enough data to predict.</p>
+    </div>
+    <div class="calendar-section">
+      <h2>Calendar View</h2>
+      <div id="calendar"></div>
+    </div>
+    <div class="history-section">
+      <h2>History</h2>
+      <ul id="history-list"></ul>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
