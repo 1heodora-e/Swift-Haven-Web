@@ -3,34 +3,217 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Period Tracker</title>
+  <title>CycleWise - Your Personal Period Tracker</title>
   <link rel="stylesheet" href="/assets/css/tracker.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
   <div class="container">
-    <h1>My Period Tracker</h1>
-    <div class="input-section">
-      <label for="start-date">Start Date:</label>
-      <input type="date" id="start-date">
-      <label for="end-date">End Date:</label>
-      <input type="date" id="end-date">
-      <label for="symptoms">Symptoms:</label>
-      <input type="text" id="symptoms" placeholder="e.g., cramps, mood swings">
-      <button id="add-entry">Add Entry</button>
-    </div>
-    <div class="prediction-section">
-      <h2>Prediction</h2>
-      <p id="prediction">Not enough data to predict.</p>
-    </div>
-    <div class="calendar-section">
-      <h2>Calendar View</h2>
-      <div id="calendar"></div>
-    </div>
-    <div class="history-section">
-      <h2>History</h2>
-      <ul id="history-list"></ul>
+    <header>
+      <h1><i class="fas fa-moon"></i> CycleWise</h1>
+      <p class="tagline">Empowering you through menstrual health education</p>
+    </header>
+
+    <div class="main-content">
+      <section class="cycle-phase-indicator">
+        <h2>Your Current Cycle Phase</h2>
+        <div id="phase-display">
+          <div class="phase-icon"></div>
+          <div class="phase-info">
+            <h3 id="current-phase">Loading...</h3>
+            <p id="phase-description"></p>
+            <div class="phase-recommendations">
+              <div class="recommendation-section">
+                <h4>How You Might Be Feeling</h4>
+                <p id="phase-feelings"></p>
+              </div>
+              <div class="recommendation-section">
+                <h4>Self-Care Tips</h4>
+                <p id="phase-tips"></p>
+              </div>
+              <div class="recommendation-section">
+                <h4>Nutrition Guide</h4>
+                <p id="phase-nutrition"></p>
+              </div>
+              <div class="recommendation-section">
+                <h4>Lifestyle Recommendations</h4>
+                <p id="phase-lifestyle"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="input-section">
+        <h2>Log Your Period</h2>
+        <div class="form-group">
+          <label for="start-date">Start Date:</label>
+          <input type="date" id="start-date" required>
+        </div>
+        <div class="form-group">
+          <label for="end-date">End Date:</label>
+          <input type="date" id="end-date">
+        </div>
+        <div class="form-group">
+          <label for="symptoms">Symptoms:</label>
+          <div class="symptoms-container">
+            <div class="symptom-chips">
+              <span class="chip" data-symptom="cramps">Cramps</span>
+              <span class="chip" data-symptom="headache">Headache</span>
+              <span class="chip" data-symptom="mood-swings">Mood Swings</span>
+              <span class="chip" data-symptom="fatigue">Fatigue</span>
+              <span class="chip" data-symptom="bloating">Bloating</span>
+            </div>
+            <input type="text" id="symptoms" placeholder="Add custom symptoms">
+          </div>
+        </div>
+        <button id="add-entry" class="primary-button">Save Entry</button>
+      </section>
+
+      <section class="prediction-section">
+        <h2>Cycle Insights</h2>
+        <div class="prediction-cards">
+          <div class="prediction-card">
+            <i class="fas fa-calendar"></i>
+            <h3>Next Period</h3>
+            <p id="next-period">Calculating...</p>
+          </div>
+          <div class="prediction-card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Cycle Length</h3>
+            <p id="cycle-length">Calculating...</p>
+          </div>
+          <div class="prediction-card">
+            <i class="fas fa-egg"></i>
+            <h3>Ovulation</h3>
+            <p id="ovulation-date">Calculating...</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="phase-calculator">
+        <h2>Understanding Your Cycle Phases</h2>
+        <div class="phase-info-box">
+          <p>Your menstrual cycle consists of four distinct phases. Here's how to track them:</p>
+          <ul>
+            <li><strong>Menstrual Phase (Days 1-5):</strong> Starts with your period</li>
+            <li><strong>Follicular Phase (Days 6-14):</strong> Begins after your period ends</li>
+            <li><strong>Ovulation Phase (Days 14-16):</strong> Mid-cycle</li>
+            <li><strong>Luteal Phase (Days 17-28):</strong> Post-ovulation until next period</li>
+          </ul>
+          <p>Note: These are average durations. Your cycle might vary, and that's completely normal!</p>
+        </div>
+      </section>
+
+      <section class="calendar-section">
+        <h2>Calendar View</h2>
+        <div class="calendar-controls">
+          <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+          <h3 id="current-month">March 2025</h3>
+          <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="calendar-header">
+          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span>
+          <span>Thu</span><span>Fri</span><span>Sat</span>
+        </div>
+        <div id="calendar" class="calendar-grid"></div>
+      </section>
+
+      <section class="education-section">
+        <h2>Learn About Your Cycle</h2>
+        <div class="phase-cards">
+          <div class="phase-card" data-phase="menstrual">
+            <h3>Menstrual Phase</h3>
+            <p>The phase when menstruation occurs, typically lasting 3-7 days.</p>
+          </div>
+          <div class="phase-card" data-phase="follicular">
+            <h3>Follicular Phase</h3>
+            <p>The phase when your body prepares for ovulation.</p>
+          </div>
+          <div class="phase-card" data-phase="ovulation">
+            <h3>Ovulation Phase</h3>
+            <p>The phase when an egg is released from the ovary.</p>
+          </div>
+          <div class="phase-card" data-phase="luteal">
+            <h3>Luteal Phase</h3>
+            <p>The post-ovulation phase until your next period.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="resources-section">
+        <h2>Educational Resources</h2>
+        <div class="resources-container">
+          <div class="resources-filters">
+            <button class="filter-btn active" data-filter="all">All Resources</button>
+            <button class="filter-btn" data-filter="articles">Articles</button>
+            <button class="filter-btn" data-filter="videos">Videos</button>
+            <button class="filter-btn" data-filter="guides">Guides</button>
+          </div>
+
+          <div class="resources-grid">
+            <!-- Articles -->
+            <div class="resource-card" data-type="articles">
+              <div class="resource-icon"><i class="fas fa-book-open"></i></div>
+              <h3>Understanding Your Menstrual Cycle</h3>
+              <p>A comprehensive guide to the four phases of your menstrual cycle and what to expect during each phase.</p>
+              <a href="#" class="resource-link" data-resource="cycle-guide">Read More</a>
+            </div>
+
+            <div class="resource-card" data-type="articles">
+              <div class="resource-icon"><i class="fas fa-apple-alt"></i></div>
+              <h3>Nutrition and Your Cycle</h3>
+              <p>Learn about the best foods to eat during each phase of your cycle to support your hormonal health.</p>
+              <a href="#" class="resource-link" data-resource="nutrition">Read More</a>
+            </div>
+
+            <!-- Videos -->
+            <div class="resource-card" data-type="videos">
+              <div class="resource-icon"><i class="fas fa-video"></i></div>
+              <h3>Exercise and Your Cycle</h3>
+              <p>Video guides on how to adjust your workout routine according to your menstrual cycle phases.</p>
+              <a href="#" class="resource-link" data-resource="exercise">Watch Now</a>
+            </div>
+
+            <div class="resource-card" data-type="videos">
+              <div class="resource-icon"><i class="fas fa-video"></i></div>
+              <h3>Stress Management Techniques</h3>
+              <p>Video demonstrations of stress-relief exercises tailored for different cycle phases.</p>
+              <a href="#" class="resource-link" data-resource="stress">Watch Now</a>
+            </div>
+
+            <!-- Guides -->
+            <div class="resource-card" data-type="guides">
+              <div class="resource-icon"><i class="fas fa-file-alt"></i></div>
+              <h3>PMS Management Guide</h3>
+              <p>Practical tips and strategies for managing PMS symptoms naturally.</p>
+              <a href="#" class="resource-link" data-resource="pms">Download Guide</a>
+            </div>
+
+            <div class="resource-card" data-type="guides">
+              <div class="resource-icon"><i class="fas fa-file-alt"></i></div>
+              <h3>Menstrual Health FAQ</h3>
+              <p>Answers to common questions about menstrual health, symptoms, and cycle variations.</p>
+              <a href="#" class="resource-link" data-resource="faq">Read FAQ</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="resource-modal" class="modal">
+          <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="resource-content"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="history-section">
+        <h2>History</h2>
+        <div class="history-list" id="history-list"></div>
+      </section>
     </div>
   </div>
-  <script src="script.js"></script>
+  <script src="/assets/js/script.js"></script>
+  <script src="/assets/js/tracker.js"></script>
 </body>
 </html>
