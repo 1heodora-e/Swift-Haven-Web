@@ -1,4 +1,91 @@
-// CycleWise - Period Tracker JavaScript
+"use strict";
+
+/**
+ * add event on element
+ */
+
+const addEventOnElem = function (elem, type, callback) {
+  if (elem.length > 1) {
+    for (let i = 0; i < elem.length; i++) {
+      elem[i].addEventListener(type, callback);
+    }
+  } else {
+    elem.addEventListener(type, callback);
+  }
+};
+
+/**
+ * navbar toggle
+ */
+
+const navbar = document.querySelector("[data-navbar]");
+const navToggler = document.querySelectorAll("[data-nav-toggler]");
+const overlay = document.querySelector("[data-overlay]");
+
+const toggleNavbar = function () {
+  navbar.classList.toggle("active");
+  overlay.classList.toggle("active");
+};
+
+addEventOnElem(navToggler, "click", toggleNavbar);
+
+/**
+ * close navbar when click on any navbar links
+ */
+
+const navLinks = document.querySelectorAll("[data-nav-link]");
+
+const closeNavbar = function () {
+  navbar.classList.remove("active");
+  overlay.classList.remove("active");
+};
+
+addEventOnElem(navLinks, "click", closeNavbar);
+
+/**
+ * header active when scroll down
+ */
+
+const header = document.querySelector("[data-header]");
+
+const headerActive = function () {
+  window.scrollY > 100
+    ? header.classList.add("active")
+    : header.classList.remove("active");
+};
+
+addEventOnElem(window, "scroll", headerActive);
+
+/**
+ * accordion toggle
+ */
+
+const accordionAction = document.querySelectorAll("[data-accordion-action]");
+
+const toggleAccordion = function () {
+  this.classList.toggle("active");
+};
+
+addEventOnElem(accordionAction, "click", toggleAccordion);
+
+const sections = document.querySelectorAll("section");
+
+window.addEventListener("scroll", () => {
+  const scrollY = window.scrollY;
+
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop;
+    const sectionHeight = section.clientHeight;
+
+    if (scrollY >= sectionTop - sectionHeight / 2) {
+      section.classList.add("active");
+    } else {
+      section.classList.remove("active");
+    }
+  });
+});
+
+// CycleWise functionality
 class CycleWise {
     constructor() {
         this.initializeData();
@@ -17,19 +104,19 @@ class CycleWise {
 
     setupEventListeners() {
         // Period logging
-        document.getElementById('add-entry').addEventListener('click', () => this.addPeriodEntry());
+        document.getElementById('add-entry')?.addEventListener('click', () => this.addPeriodEntry());
         
         // Symptom chips
-        document.querySelectorAll('.chip').forEach(chip => {
+        document.querySelectorAll('.chip')?.forEach(chip => {
             chip.addEventListener('click', () => this.toggleSymptom(chip));
         });
 
         // Calendar navigation
-        document.getElementById('prev-month').addEventListener('click', () => this.changeMonth(-1));
-        document.getElementById('next-month').addEventListener('click', () => this.changeMonth(1));
+        document.getElementById('prev-month')?.addEventListener('click', () => this.changeMonth(-1));
+        document.getElementById('next-month')?.addEventListener('click', () => this.changeMonth(1));
 
         // Phase cards
-        document.querySelectorAll('.phase-card').forEach(card => {
+        document.querySelectorAll('.phase-card')?.forEach(card => {
             card.addEventListener('click', () => this.showPhaseDetails(card.dataset.phase));
         });
     }
@@ -45,9 +132,9 @@ class CycleWise {
     }
 
     addPeriodEntry() {
-        const startDate = document.getElementById('start-date').value;
-        const endDate = document.getElementById('end-date').value;
-        const customSymptoms = document.getElementById('symptoms').value;
+        const startDate = document.getElementById('start-date')?.value;
+        const endDate = document.getElementById('end-date')?.value;
+        const customSymptoms = document.getElementById('symptoms')?.value;
 
         if (!startDate) {
             this.showNotification('Please enter a start date', 'error');
@@ -58,7 +145,7 @@ class CycleWise {
             startDate: new Date(startDate),
             endDate: endDate ? new Date(endDate) : null,
             symptoms: [...this.selectedSymptoms],
-            customSymptoms: customSymptoms.split(',').map(s => s.trim()).filter(s => s)
+            customSymptoms: customSymptoms?.split(',').map(s => s.trim()).filter(s => s) || []
         };
 
         this.cycles.push(entry);
@@ -69,9 +156,9 @@ class CycleWise {
         this.showNotification('Period entry added successfully', 'success');
 
         // Reset form
-        document.getElementById('start-date').value = '';
-        document.getElementById('end-date').value = '';
-        document.getElementById('symptoms').value = '';
+        if (document.getElementById('start-date')) document.getElementById('start-date').value = '';
+        if (document.getElementById('end-date')) document.getElementById('end-date').value = '';
+        if (document.getElementById('symptoms')) document.getElementById('symptoms').value = '';
         this.selectedSymptoms.clear();
         document.querySelectorAll('.chip').forEach(chip => chip.classList.remove('active'));
     }
@@ -123,38 +210,40 @@ class CycleWise {
     updateCalendarHeader() {
         const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'];
-        document.getElementById('current-month').textContent = 
+        document.getElementById('current-month')?.textContent = 
             `${monthNames[this.displayDate.getMonth()]} ${this.displayDate.getFullYear()}`;
     }
 
     updateCalendar() {
         const calendar = document.getElementById('calendar');
-        calendar.innerHTML = '';
+        if (calendar) {
+            calendar.innerHTML = '';
 
-        const firstDay = new Date(this.displayDate.getFullYear(), this.displayDate.getMonth(), 1);
-        const lastDay = new Date(this.displayDate.getFullYear(), this.displayDate.getMonth() + 1, 0);
-        
-        // Add empty cells for days before the first of the month
-        for (let i = 0; i < firstDay.getDay(); i++) {
-            calendar.appendChild(this.createCalendarDay(''));
-        }
-
-        // Add days of the month
-        for (let date = 1; date <= lastDay.getDate(); date++) {
-            const dayElement = this.createCalendarDay(date);
-            const currentDate = new Date(this.displayDate.getFullYear(), this.displayDate.getMonth(), date);
+            const firstDay = new Date(this.displayDate.getFullYear(), this.displayDate.getMonth(), 1);
+            const lastDay = new Date(this.displayDate.getFullYear(), this.displayDate.getMonth() + 1, 0);
             
-            // Mark period days
-            if (this.isDateInPeriod(currentDate)) {
-                dayElement.classList.add('period');
-            }
-            
-            // Mark ovulation days
-            if (this.isOvulationDay(currentDate)) {
-                dayElement.classList.add('ovulation');
+            // Add empty cells for days before the first of the month
+            for (let i = 0; i < firstDay.getDay(); i++) {
+                calendar.appendChild(this.createCalendarDay(''));
             }
 
-            calendar.appendChild(dayElement);
+            // Add days of the month
+            for (let date = 1; date <= lastDay.getDate(); date++) {
+                const dayElement = this.createCalendarDay(date);
+                const currentDate = new Date(this.displayDate.getFullYear(), this.displayDate.getMonth(), date);
+                
+                // Mark period days
+                if (this.isDateInPeriod(currentDate)) {
+                    dayElement.classList.add('period');
+                }
+                
+                // Mark ovulation days
+                if (this.isOvulationDay(currentDate)) {
+                    dayElement.classList.add('ovulation');
+                }
+
+                calendar.appendChild(dayElement);
+            }
         }
     }
 
@@ -191,25 +280,27 @@ class CycleWise {
 
     updateHistory() {
         const historyList = document.getElementById('history-list');
-        historyList.innerHTML = '';
+        if (historyList) {
+            historyList.innerHTML = '';
 
-        this.cycles.slice().reverse().forEach(cycle => {
-            const entry = document.createElement('div');
-            entry.className = 'history-item fade-in';
-            
-            const dateRange = cycle.endDate ? 
-                `${this.formatDate(cycle.startDate)} - ${this.formatDate(cycle.endDate)}` :
-                this.formatDate(cycle.startDate);
+            this.cycles.slice().reverse().forEach(cycle => {
+                const entry = document.createElement('div');
+                entry.className = 'history-item fade-in';
+                
+                const dateRange = cycle.endDate ? 
+                    `${this.formatDate(cycle.startDate)} - ${this.formatDate(cycle.endDate)}` :
+                    this.formatDate(cycle.startDate);
 
-            const symptoms = [...cycle.symptoms, ...cycle.customSymptoms].join(', ');
-            
-            entry.innerHTML = `
-                <strong>${dateRange}</strong>
-                ${symptoms ? `<br>Symptoms: ${symptoms}` : ''}
-            `;
-            
-            historyList.appendChild(entry);
-        });
+                const symptoms = [...cycle.symptoms, ...cycle.customSymptoms].join(', ');
+                
+                entry.innerHTML = `
+                    <strong>${dateRange}</strong>
+                    ${symptoms ? `<br>Symptoms: ${symptoms}` : ''}
+                `;
+                
+                historyList.appendChild(entry);
+            });
+        }
     }
 
     showPhaseDetails(phase) {
@@ -237,8 +328,8 @@ class CycleWise {
         };
 
         const info = phaseInfo[phase];
-        document.getElementById('current-phase').textContent = info.title;
-        document.getElementById('phase-description').innerHTML = `
+        document.getElementById('current-phase')?.textContent = info.title;
+        document.getElementById('phase-description')?.innerHTML = `
             ${info.description}<br><br>
             <strong>Tips:</strong> ${info.tips}
         `;
@@ -291,7 +382,9 @@ class CycleWise {
     }
 }
 
-// Initialize the application
+// Initialize CycleWise when DOM is loaded and on tracker page
 document.addEventListener('DOMContentLoaded', () => {
-    new CycleWise();
+    if (document.querySelector('.calendar')) {
+        new CycleWise();
+    }
 });
