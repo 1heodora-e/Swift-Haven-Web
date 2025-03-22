@@ -77,36 +77,71 @@
 
     <div class="main-content">
 
-      <section class="input-section">
-        <h2>Log Your Period</h2>
-        <div class="form-group">
-          <label for="start-date">Start Date:</label>
-          <input type="date" id="start-date" required>
-        </div>
-        <div class="form-group">
-          <label for="end-date">End Date:</label>
-          <input type="date" id="end-date">
-        </div>
-        <div class="form-group">
-          <label for="symptoms">Symptoms:</label>
-          <div class="symptoms-container">
-            <div class="symptom-chips">
-              <span class="chip" data-symptom="cramps">Cramps</span>
-              <span class="chip" data-symptom="headache">Headache</span>
-              <span class="chip" data-symptom="mood-swings">Mood Swings</span>
-              <span class="chip" data-symptom="fatigue">Fatigue</span>
-              <span class="chip" data-symptom="bloating">Bloating</span>
+      <div class="grid-container">
+        <section class="input-section">
+          <h6>Log Your Period</h6>
+          <div class="form-group">
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" required>
+          </div>
+          <div class="form-group">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date">
+          </div>
+          <div class="form-group">
+            <label for="symptoms">Symptoms:</label>
+            <div class="symptoms-container">
+              <div class="symptom-chips">
+                <span class="chip" data-symptom="cramps">Cramps</span>
+                <span class="chip" data-symptom="headache">Headache</span>
+                <span class="chip" data-symptom="mood-swings">Mood Swings</span>
+                <span class="chip" data-symptom="fatigue">Fatigue</span>
+                <span class="chip" data-symptom="bloating">Bloating</span>
+              </div>
+              <input type="text" id="symptoms" placeholder="Add custom symptoms">
             </div>
-            <input type="text" id="symptoms" placeholder="Add custom symptoms">
+          </div>
+          <button id="add-entry" class="primary-button">Save Entry</button>
+        </section>
+        <section class="calendar-section">
+          <h6>Calendar View</h6>
+          <div class="calendar-controls">
+            <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+            <h6 id="current-month">March 2025</h6>
+            <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="calendar-header">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span>
+            <span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="calendar" class="calendar-grid"></div>
+        </section>
+      </div>
+
+      <section class="prediction-section">
+        <h3 class="prediction-header">Cycle Insights</h3>
+        <div class="prediction-cards">
+          <div class="prediction-card">
+            <i class="fas fa-calendar"></i>
+            <h6>Next Period</h6>
+            <p id="next-period">Calculating...</p>
+          </div>
+          <div class="prediction-card">
+            <i class="fas fa-chart-line"></i>
+            <h6>Cycle Length</h6>
+            <p id="cycle-length">Calculating...</p>
+          </div>
+          <div class="prediction-card">
+            <i class="fas fa-egg"></i>
+            <h6>Ovulation</h6 >
+            <p id="ovulation-date">Calculating...</p>
           </div>
         </div>
-        <button id="add-entry" class="primary-button">Save Entry</button>
       </section>
-      
-      <section class="cycle-phase-indicator">
-        <h2>Your Current Cycle Phase</h2>
+
+      <div class="cycle-phase-indicator">
+        <h6>Your Current Cycle Phase</h6>
         <div id="phase-display">
-          <div class="phase-icon"></div>
           <div class="phase-info">
             <h3 id="current-phase">Loading...</h3>
             <p id="phase-description"></p>
@@ -130,31 +165,10 @@
             </div>
           </div>
         </div>
-      </section>
-
-      <section class="prediction-section">
-        <h2>Cycle Insights</h2>
-        <div class="prediction-cards">
-          <div class="prediction-card">
-            <i class="fas fa-calendar"></i>
-            <h3>Next Period</h3>
-            <p id="next-period">Calculating...</p>
-          </div>
-          <div class="prediction-card">
-            <i class="fas fa-chart-line"></i>
-            <h3>Cycle Length</h3>
-            <p id="cycle-length">Calculating...</p>
-          </div>
-          <div class="prediction-card">
-            <i class="fas fa-egg"></i>
-            <h3>Ovulation</h3>
-            <p id="ovulation-date">Calculating...</p>
-          </div>
-        </div>
-      </section>
+      </div>
 
       <section class="phase-calculator">
-        <h2>Understanding Your Cycle Phases</h2>
+        <h6>Understanding Your Cycle Phases</h6>
         <div class="phase-info-box">
           <p>Your menstrual cycle consists of four distinct phases. Here's how to track them:</p>
           <ul>
@@ -167,22 +181,8 @@
         </div>
       </section>
 
-      <section class="calendar-section">
-        <h2>Calendar View</h2>
-        <div class="calendar-controls">
-          <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
-          <h3 id="current-month">March 2025</h3>
-          <button id="next-month"><i class="fas fa-chevron-right"></i></button>
-        </div>
-        <div class="calendar-header">
-          <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span>
-          <span>Thu</span><span>Fri</span><span>Sat</span>
-        </div>
-        <div id="calendar" class="calendar-grid"></div>
-      </section>
-
       <section class="education-section">
-        <h2>Learn About Your Cycle</h2>
+        <h6>Learn About Your Cycle</h6>
         <div class="phase-cards">
           <div class="phase-card" data-phase="menstrual">
             <h3>Menstrual Phase</h3>
@@ -204,7 +204,7 @@
       </section>
 
       <section class="resources-section">
-        <h2>Educational Resources</h2>
+        <h6>Educational Resources</h6>
         <div class="resources-container">
           <div class="resources-filters">
             <button class="filter-btn active" data-filter="all">All Resources</button>
@@ -270,7 +270,7 @@
       </section>
 
       <section class="history-section">
-        <h2>History</h2>
+        <h6>History</h6>
         <div class="history-list" id="history-list"></div>
       </section>
     </div>
