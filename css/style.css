@@ -2,13 +2,6 @@
   #style.css
 \*-----------------------------------*/
 
-/**
- * copyright 2022 codewithsadee
- */
-
-
-
-
 
 /*-----------------------------------*\
   #CUSTOM PROPERTY
@@ -166,16 +159,18 @@ body {
 
 .container { padding-inline: 15px; }
 
-.section { 
+/* Slide-in animation for sections */
+.section {
   padding-block: var(--section-padding);
-  /* opacity: 0;  */
-  transform: translateY(100px); /* Initially off-screen */
-  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  opacity: 1;
+  transform: translateY(0);
+  transition: none;
 }
 .section.active {
   opacity: 1;
   transform: translateY(0);
 }
+
 .has-before
 .has-after {
   position: relative;
@@ -292,7 +287,8 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 4;
+  z-index: 10;
+  background-color: var(--white);
 }
 
 .header.active {
@@ -1369,7 +1365,7 @@ video {
 
 
   /**
-   * FAQ
+   * FA
    */
 
   .faq-card .card-action.active + .card-content { max-height: 200px; }
