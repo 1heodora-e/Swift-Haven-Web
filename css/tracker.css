@@ -437,17 +437,36 @@ input[type="text"]:focus {
   border: 1px solid var(--gray);
   margin: 0.25rem auto;
   text-align: center;
+  transition: all 0.3s ease;
 }
 
 .calendar-day.period {
   background-color: var(--primary-light);
   color: var(--white);
+  font-weight: 500;
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+
 .calendar-day.ovulation {
-  background-color: var(--primary-dark);
+  background-color: #82c3ec; /* Light blue for ovulation */
   color: var(--white);
+  font-weight: 500;
+  transform: scale(1.05);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.calendar-day:hover {
+  background-color: var(--gray);
+  transform: scale(1.1);
+}
+
+.calendar-day.today {
+  border: 2px solid var(--primary-dark);
+  font-weight: bold;
+}
+
 
 /* Education Section */
 .phase-cards {
@@ -868,4 +887,112 @@ input[type="text"]:focus {
 
 .fade-in {
   animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Phase Box Styling */
+.phase-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.phase-box {
+  background-color: var(--white);
+  border: 2px solid var(--primary-light);
+  border-radius: 25px;
+  box-shadow: var(--shadow);
+  margin: 10px;
+  flex: 1 1 calc(25% - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  transition: transform 0.3s;
+}
+
+.phase-box:hover {
+  transform: translateY(-5px);
+}
+
+.phase-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--primary-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.phase-icon i {
+  font-size: 24px;
+  color: var(--white);
+}
+
+/* Specific icons styling */
+.phase-icon .fa-tint {
+  /* Menstrual phase icon */
+  font-size: 28px;
+}
+
+.phase-icon .fa-seedling {
+  /* Follicular phase icon */
+  font-size: 26px;
+}
+
+.phase-icon .fa-egg {
+  /* Ovulation phase icon */
+  font-size: 26px;
+}
+
+.phase-icon .fa-moon {
+  /* Luteal phase icon */
+  font-size: 26px;
+}
+
+.phase-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.dropdown-btn {
+  background-color: transparent;
+  color: var(--primary-color);
+  border: none;
+  cursor: pointer;
+  padding: 8px 15px;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+}
+
+.dropdown-btn:hover {
+  background-color: var(--gray-light);
+}
+
+.dropdown-btn i {
+  transition: transform 0.3s ease;
+}
+
+.dropdown-content {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease-out;
+}
+
+.dropdown-content.show {
+  max-height: 500px; /* Adjust as needed for content size */
+}
+
+.dropdown-content p {
+  line-height: 1.6;
+  color: var(--text-dark);
 }

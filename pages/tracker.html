@@ -167,39 +167,44 @@
         </div>
       </div>
 
-      <section class="phase-calculator">
-        <h6>Understanding Your Cycle Phases</h6>
-        <div class="phase-info-box">
-          <p>Your menstrual cycle consists of four distinct phases. Here's how to track them:</p>
-          <ul>
-            <li><strong>Menstrual Phase (Days 1-5):</strong> Starts with your period</li>
-            <li><strong>Follicular Phase (Days 6-14):</strong> Begins after your period ends</li>
-            <li><strong>Ovulation Phase (Days 14-16):</strong> Mid-cycle</li>
-            <li><strong>Luteal Phase (Days 17-28):</strong> Post-ovulation until next period</li>
-          </ul>
-          <p>Note: These are average durations. Your cycle might vary, and that's completely normal!</p>
-        </div>
-      </section>
-
       <section class="education-section">
         <h6>Learn About Your Cycle</h6>
-        <div class="phase-cards">
-          <div class="phase-card" data-phase="menstrual">
-            <h3>Menstrual Phase</h3>
-            <p>The phase when menstruation occurs, typically lasting 3-7 days.</p>
+        <div class="phase-container">
+          <div class="phase-box">
+            <div class="phase-icon"><i class="fas fa-tint"></i></div>
+            <div class="phase-name">Menstrual Phase</div>
+            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content" style="display: none;">
+              <p>The menstrual phase is the first stage of the menstrual cycle. It's also when you get your period. This phase starts when an egg from the previous cycle isn't fertilized. Because pregnancy hasn't taken place, levels of the hormones estrogen and progesterone drop. Thickened lining of your uterus, which would support a pregnancy, is no longer needed, so it sheds through your vagina. During your period, you shed a combination of blood, mucus, and tissue from your uterus.</p>
+            </div>
           </div>
-          <div class="phase-card" data-phase="follicular">
-            <h3>Follicular Phase</h3>
-            <p>The phase when your body prepares for ovulation.</p>
+        
+          <div class="phase-box">
+            <div class="phase-icon"><i class="fas fa-seedling"></i></div>
+            <div class="phase-name">Follicular Phase</div>
+            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content" style="display: none;">
+              <p>The follicular phase starts on the first day of your period (so there is some overlap with the menstrual phase) and ends when you ovulate. It starts when the hypothalamus sends a signal to your pituitary gland to release follicle-stimulating hormone (FSH). This hormone stimulates your ovaries to produce around 5 to 20 small sacs called follicles. Each follicle contains an immature egg. Only the healthiest egg will eventually mature. (On rare occasions, a woman may have two eggs mature.) The rest of the follicles will be reabsorbed into your body. The maturing follicle sets off a surge in estrogen that thickens the lining of your uterus. This creates a nutrient-rich environment for an embryo to grow.</p>
+            </div>
           </div>
-          <div class="phase-card" data-phase="ovulation">
-            <h3>Ovulation Phase</h3>
-            <p>The phase when an egg is released from the ovary.</p>
+        
+          <div class="phase-box">
+            <div class="phase-icon"><i class="fas fa-egg"></i></div>
+            <div class="phase-name">Ovulation Phase</div>
+            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content" style="display: none;">
+              <p>Rising estrogen levels during the follicular phase trigger your pituitary gland to release luteinizing hormone (LH). This is what starts the process of ovulation. Ovulation occurs when your ovary releases a mature egg. The egg travels down the fallopian tube toward the uterus to be fertilized by sperm. The ovulation phase is the only time during your menstrual cycle when you can get pregnant. You can tell that you're ovulating by symptoms like these: a slight rise in basal body temperature, thicker discharge that has the texture of egg whites.</p>
+            </div>
           </div>
-          <div class="phase-card" data-phase="luteal">
-            <h3>Luteal Phase</h3>
-            <p>The post-ovulation phase until your next period.</p>
-          </div>
+        
+          <div class="phase-box">
+            <div class="phase-icon"><i class="fas fa-moon"></i></div>
+            <div class="phase-name">Luteal Phase</div>
+            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content" style="display: none;">
+              <p>After the follicle releases its egg, it changes into the corpus luteum. This structure releases hormones, mainly progesterone and some estrogen. The rise in hormones keeps your uterine lining thick and ready for a fertilized egg to implant. If you do get pregnant, your body will produce human chorionic gonadotropin (hCG). This is the hormone pregnancy tests detect. It helps maintain the corpus luteum and keeps the uterine lining thick. If you don't get pregnant, the corpus luteum will shrink away and be resorbed. This leads to decreased levels of estrogen and progesterone, which causes the onset of your period. The uterine lining will shed during your period.</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -275,6 +280,20 @@
       </section>
     </div>
   </div>
+  <script>
+    document.querySelectorAll('.dropdown-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Close all dropdowns
+        document.querySelectorAll('.dropdown-content').forEach(content => {
+          content.classList.remove('show');
+        });
+        
+        // Toggle the clicked dropdown
+        let content = this.nextElementSibling;
+        content.classList.toggle('show');
+      });
+    });
+  </script>
   <script src="/js/script.js"></script>
   <script src="/js/tracker.js"></script>
 </body>
