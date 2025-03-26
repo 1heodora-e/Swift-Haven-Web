@@ -31,59 +31,49 @@
             </div>
           </div>
           
+          <!-- Desktop Navigation -->
           <nav class="desktop-nav"> 
             <ul class="navbar-list">
-              <li>
-                <a href="/index.html" class="navbar-link" data-nav-link>Home</a>
-              </li>
-              <li>
-                <a href="/index.html#mission" class="navbar-link" data-nav-link>About</a>
-              </li>
-              <li>
-                <a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a>
-              </li>
+              <li><a href="/index.html" class="navbar-link" data-nav-link>Home</a></li>
+              <li><a href="/index.html#mission" class="navbar-link" data-nav-link>About</a></li>
+              <li><a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a></li>
             </ul>
           </nav>
-    
+
+          <!-- Hamburger Menu Button -->
           <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
-            <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
           </button>
         </div>
-      </div>
-      
-      <!-- Mobile navigation overlay -->
-      <div class="overlay" data-nav-toggler data-overlay></div>
-      
-      <!-- Mobile navigation menu -->
-      <div class="navbar">
-        <div class="wrapper">
-          <a href="/">
-            <img src="/assets/images/Cycle Wise Logo.png" alt="logo" class="logo">
-          </a>
-          <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
-            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
-          </button>
-        </div>
-        <nav>
-          <ul class="mobile-navbar-list">
-            <li>
-              <a href="/index.html" class="navbar-link" data-nav-link>Home</a>
-            </li>
-            <li>
-              <a href="/index.html#mission" class="navbar-link" data-nav-link>About</a>
-            </li>
-            <li>
-              <a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a>
-            </li>
-          </ul>
-        </nav>
       </div>
     </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="overlay" data-nav-toggler data-overlay></div>
+    <div class="navbar" data-navbar>
+      <div class="wrapper">
+        <a href="/">
+          <img src="/assets/images/Cycle Wise Logo.png" alt="logo" class="logo">
+        </a>
+        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav>
+        <ul class="mobile-navbar-list">
+          <li><a href="/index.html" class="navbar-link" data-nav-link>Home</a></li>
+          <li><a href="/index.html#mission" class="navbar-link" data-nav-link>About</a></li>
+          <li><a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
 
     <div class="main-content">
 
       <div class="grid-container">
-        <section class="input-section">
+        <section class="input-section animate slide-in-left">
           <h6>Log Your Period</h6>
           <div class="form-group">
             <label for="start-date">Start Date:</label>
@@ -123,7 +113,7 @@
         </section>
       </div>
 
-      <section class="prediction-section">
+      <section class="prediction-section animate fade-in-up">
         <h3 class="prediction-header">Cycle Insights</h3>
         <div class="prediction-cards">
           <div class="prediction-card">
@@ -144,7 +134,7 @@
         </div>
       </section>
 
-      <div class="cycle-phase-indicator">
+      <div class="cycle-phase-indicator animate fade-in-up">
         <h6>Your Current Cycle Phase</h6>
         <div id="phase-display">
           <div class="phase-info">
@@ -172,7 +162,7 @@
         </div>
       </div>
 
-      <section class="education-section">
+      <section class="education-section animate slide-in-left">
         <h6>Learn About Your Cycle</h6>
         <div class="phase-container">
           <div class="phase-box">
@@ -213,7 +203,7 @@
         </div>
       </section>
 
-      <section class="resources-section">
+      <section class="resources-section animate slide-in-right">
         <h6>Educational Resources</h6>
         <div class="resources-container">
           <div class="resources-filters">
@@ -279,7 +269,7 @@
         </div>
       </section>
 
-      <section class="history-section">
+      <section class="history-section animate fade-in-up">
         <h6>History</h6>
         <div class="history-list" id="history-list"></div>
       </section>

@@ -7,6 +7,8 @@ class CycleWise {
       this.loadData();
       this.updateUI();
       this.setupResourcesSection();
+      this.setupAnimations();
+      this.setupMobileNav();
   }
 
   initializeData() {
@@ -32,6 +34,46 @@ class CycleWise {
       // Phase cards
       document.querySelectorAll('.phase-card').forEach(card => {
           card.addEventListener('click', () => this.showPhaseDetails(card.dataset.phase));
+      });
+
+      // Mobile navigation
+      const navBtn = document.querySelector('[data-nav-toggler]');
+      const navbar = document.querySelector('[data-navbar]');
+      const overlay = document.querySelector('[data-overlay]');
+      const navLinks = document.querySelectorAll('[data-nav-link]');
+      const closeBtn = document.querySelector('.nav-close-btn');
+
+      const toggleMenu = () => {
+          navbar.classList.toggle('active');
+          overlay.classList.toggle('active');
+          document.body.style.overflow = navbar.classList.contains('active') ? 'hidden' : '';
+      };
+
+      const closeMenu = () => {
+          navbar.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.style.overflow = '';
+      };
+
+      // Toggle menu on hamburger button click
+      navBtn?.addEventListener('click', toggleMenu);
+
+      // Close menu when clicking close button
+      closeBtn?.addEventListener('click', closeMenu);
+
+      // Close menu when clicking overlay
+      overlay?.addEventListener('click', closeMenu);
+
+      // Close menu when clicking nav links
+      navLinks.forEach(link => {
+          link.addEventListener('click', closeMenu);
+      });
+
+      // Close menu on scroll
+      window.addEventListener('scroll', () => {
+          if (navbar?.classList.contains('active')) {
+              closeMenu();
+          }
       });
   }
 
@@ -62,7 +104,8 @@ class CycleWise {
           customSymptoms: customSymptoms.split(',').map(s => s.trim()).filter(s => s)
       };
 
-      this.cycles.push(entry);
+      // Clear existing cycles and add the new one
+      this.cycles = [entry];
       this.saveCycles();
       this.updatePredictions();
       this.updateCalendar();
@@ -83,32 +126,32 @@ class CycleWise {
   }
 
   updatePredictions() {
-      if (this.cycles.length < 2) {
+      if (this.cycles.length < 1) {
           this.updatePredictionText('next-period', 'Need more data');
           this.updatePredictionText('cycle-length', 'Need more data');
           this.updatePredictionText('ovulation-date', 'Need more data');
           return;
       }
 
-      // Calculate average cycle length
-      const cycleLengths = [];
-      for (let i = 1; i < this.cycles.length; i++) {
-          const days = Math.round((this.cycles[i].startDate - this.cycles[i-1].startDate) / (1000 * 60 * 60 * 24));
-          cycleLengths.push(days);
+      // Calculate cycle length based on the most recent cycle
+      let cycleLength = 28; // Default length
+      if (this.cycles.length >= 2) {
+          const lastCycle = this.cycles[this.cycles.length - 1];
+          const previousCycle = this.cycles[this.cycles.length - 2];
+          cycleLength = Math.round((lastCycle.startDate - previousCycle.startDate) / (1000 * 60 * 60 * 24));
       }
-      const avgCycleLength = Math.round(cycleLengths.reduce((a, b) => a + b) / cycleLengths.length);
 
-      // Predict next period
+      // Predict next period based on the last period start date
       const lastPeriod = this.cycles[this.cycles.length - 1].startDate;
       const nextPeriod = new Date(lastPeriod);
-      nextPeriod.setDate(nextPeriod.getDate() + avgCycleLength);
+      nextPeriod.setDate(nextPeriod.getDate() + cycleLength);
 
-      // Predict ovulation
-      const ovulationDate = new Date(lastPeriod);
-      ovulationDate.setDate(ovulationDate.getDate() + Math.round(avgCycleLength / 2) - 14);
+      // Calculate ovulation (typically 14 days before the next period)
+      const ovulationDate = new Date(nextPeriod);
+      ovulationDate.setDate(ovulationDate.getDate() - 14);
 
       this.updatePredictionText('next-period', this.formatDate(nextPeriod));
-      this.updatePredictionText('cycle-length', `${avgCycleLength} days`);
+      this.updatePredictionText('cycle-length', `${cycleLength} days`);
       this.updatePredictionText('ovulation-date', this.formatDate(ovulationDate));
   }
 
@@ -174,22 +217,22 @@ class CycleWise {
   isDateInPeriod(date) {
       if (!this.cycles || this.cycles.length === 0) return false;
       
-      return this.cycles.some(cycle => {
-          // Skip cycles with invalid dates
-          if (!cycle.startDate) return false;
-          
-          const start = new Date(cycle.startDate);
-          // If end date is provided, use it, otherwise default to 5 days after start
-          const end = cycle.endDate ? new Date(cycle.endDate) : new Date(start.getTime() + (5 * 24 * 60 * 60 * 1000));
-          
-          // Normalize all dates to compare only year, month, day (remove time component)
-          const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-          const normalizedStart = new Date(start.getFullYear(), start.getMonth(), start.getDate());
-          const normalizedEnd = new Date(end.getFullYear(), end.getMonth(), end.getDate());
-          
-          // Check if the date is between start and end (inclusive)
-          return normalizedDate >= normalizedStart && normalizedDate <= normalizedEnd;
-      });
+      // Only check the most recent cycle
+      const lastCycle = this.cycles[this.cycles.length - 1];
+      
+      // Skip if no valid start date
+      if (!lastCycle || !lastCycle.startDate) return false;
+      
+      const start = new Date(lastCycle.startDate);
+      const end = lastCycle.endDate ? new Date(lastCycle.endDate) : new Date(start.getTime() + (5 * 24 * 60 * 60 * 1000));
+      
+      // Normalize all dates to compare only year, month, day
+      const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      const normalizedStart = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+      const normalizedEnd = new Date(end.getFullYear(), end.getMonth(), end.getDate());
+      
+      // Check if the date is between start and end (inclusive)
+      return normalizedDate >= normalizedStart && normalizedDate <= normalizedEnd;
   }
 
   isOvulationDay(date) {
@@ -202,7 +245,7 @@ class CycleWise {
       const lastPeriod = new Date(lastCycle.startDate);
       
       // Calculate average cycle length if we have enough data
-      let avgCycleLength = 28; // Default to 28 days
+      let cycleLength = 28; // Default to 28 days
       
       if (this.cycles.length >= 2) {
           const cycleLengths = [];
@@ -214,13 +257,13 @@ class CycleWise {
           }
           
           if (cycleLengths.length > 0) {
-              avgCycleLength = Math.round(cycleLengths.reduce((a, b) => a + b) / cycleLengths.length);
+              cycleLength = Math.round(cycleLengths.reduce((a, b) => a + b) / cycleLengths.length);
           }
       }
       
       // Calculate ovulation date (approximately 14 days before the next period)
       const ovulationDate = new Date(lastPeriod);
-      ovulationDate.setDate(ovulationDate.getDate() + Math.round(avgCycleLength / 2) - 2); // Adjusted to be more accurate
+      ovulationDate.setDate(ovulationDate.getDate() + Math.round(cycleLength / 2) - 2); // Adjusted to be more accurate
       
       // Normalize dates for comparison
       const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -363,11 +406,17 @@ class CycleWise {
       if (savedData) {
           try {
               const parsed = JSON.parse(savedData);
-              this.cycles = parsed.map(cycle => ({
-                  ...cycle,
-                  startDate: cycle.startDate ? new Date(cycle.startDate) : null,
-                  endDate: cycle.endDate ? new Date(cycle.endDate) : null
-              }));
+              // Clear existing cycles
+              this.cycles = [];
+              // Properly convert dates for each cycle
+              parsed.forEach(cycle => {
+                  this.cycles.push({
+                      startDate: cycle.startDate ? new Date(cycle.startDate) : null,
+                      endDate: cycle.endDate ? new Date(cycle.endDate) : null,
+                      symptoms: cycle.symptoms || [],
+                      customSymptoms: cycle.customSymptoms || []
+                  });
+              });
           } catch (error) {
               console.error('Error parsing saved cycle data:', error);
               this.cycles = [];
@@ -612,6 +661,60 @@ class CycleWise {
           contentDiv.innerHTML = resource.content;
           modal.style.display = 'block';
       }
+  }
+
+  setupAnimations() {
+      // Add animation classes to sections
+      const sections = document.querySelectorAll('section');
+      sections.forEach((section, index) => {
+          if (index % 2 === 0) {
+              section.classList.add('animate', 'slide-in-left');
+          } else {
+              section.classList.add('animate', 'slide-in-right');
+          }
+      });
+
+      // Add animation classes to prediction cards
+      document.querySelectorAll('.prediction-card').forEach((card, index) => {
+          card.classList.add('animate', 'fade-in-up', `delay-${index + 1}`);
+      });
+
+      // Add animation classes to phase boxes
+      document.querySelectorAll('.phase-box').forEach((box, index) => {
+          box.classList.add('animate', 'fade-in-up', `delay-${index + 1}`);
+      });
+
+      // Add animation classes to resource cards
+      document.querySelectorAll('.resource-card').forEach((card, index) => {
+          card.classList.add('animate', 'fade-in-up', `delay-${index % 3 + 1}`);
+      });
+
+      // Setup Intersection Observer
+      const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  entry.target.classList.add('visible');
+                  // If the element has animation classes, trigger them
+                  if (entry.target.classList.contains('animate')) {
+                      entry.target.style.animationPlayState = 'running';
+                  }
+                  // Unobserve after animation is triggered
+                  observer.unobserve(entry.target);
+              }
+          });
+      }, {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+      });
+
+      // Observe all animated elements
+      document.querySelectorAll('.animate, section').forEach(element => {
+          observer.observe(element);
+          // Initially pause all animations
+          if (element.classList.contains('animate')) {
+              element.style.animationPlayState = 'paused';
+          }
+      });
   }
 }
 

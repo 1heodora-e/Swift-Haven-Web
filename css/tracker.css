@@ -128,34 +128,54 @@ body {
 
 /* Mobile Navigation Toggle Button */
 .nav-open-btn {
-  display: none;
+  display: none; /* Hidden by default on desktop */
   background: none;
   border: none;
-  color: var(--rich-black-fogra-29-1);
-  font-size: 24px;
   cursor: pointer;
+  width: 30px;
+  height: 24px;
+  position: relative;
+  z-index: 1000;
+}
+
+.nav-open-btn .line {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-dark);
+  margin: 6px 0;
+  transition: all 0.3s ease;
 }
 
 /* Mobile Navigation */
 .navbar {
   position: fixed;
   top: 0;
-  left: -280px;
-  max-width: 280px;
-  width: 100%;
-  height: 100%;
-  background-color: var(--rich-black-fogra-39);
-  color: var(--white);
-  padding: 30px 20px;
-  visibility: hidden;
-  transition: 0.25s var(--cubic-out);
-  z-index: 4;
+  right: -70%; /* Start off-screen */
+  width: 70%;
+  height: 100vh;
+  background-color: var(--white);
+  padding: 2rem;
+  transition: right 0.3s ease;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 999;
 }
 
 .navbar.active {
-  visibility: visible;
-  transform: translateX(280px);
-  transition-duration: 0.5s;
+  right: 0;
+}
+
+/* X animation for menu button */
+.nav-open-btn.active .line:nth-child(1) {
+  transform: rotate(45deg) translate(7px, 7px);
+}
+
+.nav-open-btn.active .line:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-open-btn.active .line:nth-child(3) {
+  transform: rotate(-45deg) translate(7px, -7px);
 }
 
 .navbar .logo,
@@ -176,28 +196,40 @@ body {
 }
 
 .mobile-navbar-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  margin-top: 3rem;
 }
 
 .mobile-navbar-list li {
-  margin-bottom: 15px;
+  margin-bottom: 1.5rem;
+}
+
+.mobile-navbar-list .navbar-link {
+  color: var(--primary-dark);
+  font-size: 1.2rem;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.mobile-navbar-list .navbar-link:hover {
+  color: var(--primary-light);
 }
 
 .overlay {
   position: fixed;
-  inset: 0;
-  background-color: hsla(0, 0%, 100%, 0.7);
-  visibility: hidden;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
-  transition: var(--transition-1);
-  z-index: 3;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 998;
 }
 
 .overlay.active {
-  visibility: visible;
   opacity: 1;
+  visibility: visible;
 }
 
 .main-content{
@@ -211,6 +243,14 @@ section {
   padding: 1.5rem;
   margin-bottom: 2rem;
   box-shadow: var(--shadow);
+  opacity: 0; /* Start hidden */
+  transform: translateY(20px); /* Start slightly below */
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 h1 {
@@ -451,29 +491,46 @@ input[type="text"]:focus {
   align-items: center;
   justify-content: center;
   border-radius: var(--border-radius);
-  background-color: var(--gray-light);
+  background-color: #f0f0f0; /* Default ash background */
+  color: #000; /* Default black text */
   cursor: pointer;
   border: 1px solid var(--gray);
   margin: 0.25rem auto;
   text-align: center;
   transition: all 0.3s ease;
+  position: relative; /* For tooltip positioning */
 }
 
 .calendar-day.period {
-  background-color: var(--primary-light);
-  color: var(--white);
+  background-color: rgb(232, 70, 97); /* Pink background */
+  color: white;
   font-weight: 500;
   transform: scale(1.05);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-
 .calendar-day.ovulation {
-  background-color: #82c3ec; /* Light blue for ovulation */
-  color: var(--white);
+  background-color: #82c3ec; /* Blue background */
+  color: white;
   font-weight: 500;
   transform: scale(1.05);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Add tooltip styling */
+.calendar-day.ovulation:hover::before {
+  content: 'Ovulation Day';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1;
 }
 
 .calendar-day:hover {
@@ -844,67 +901,129 @@ input[type="text"]:focus {
 
 /* Ensure responsive behavior on smaller screens */
 @media (max-width: 768px) {
-  .grid-container {
-    grid-template-columns: 1fr;
-    min-height: auto;
+  .desktop-nav {
+    display: none !important;
   }
-  
-  .input-section, .calendar-section {
-    height: auto; /* Let them adjust to content on mobile */
+
+  .nav-open-btn {
+    display: block !important;
+  }
+
+  .navbar {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: var(--white);
+    padding: 2rem;
+    transition: right 0.3s ease;
+    z-index: 1000;
+  }
+
+  .navbar.active {
+    right: 0;
+  }
+
+  .nav-close-btn {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: var(--primary-dark);
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+  }
+
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: 0.3s;
+    z-index: 999;
+  }
+
+  .overlay.active {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Phase boxes in column layout */
+  .phase-container {
+    display: flex !important; /* Force flex display */
+    flex-direction: column !important;
+    gap: 20px;
+    padding: 1rem;
+  }
+
+  .phase-box {
+    width: 100% !important;
+    margin: 10px 0 !important; /* Adjust margins for column layout */
+  }
+
+  /* Adjust main content spacing */
+  .main-content {
+    margin-top: 80px; /* Adjust based on your header height */
   }
 }
 
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .phase-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .prediction-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
-  .desktop-nav {
-    display: none;
-  }
-  .nav-open-btn {
-    display: block;
-  }
-  .container {
-    padding: 1rem;
+  .phase-container {
+    grid-template-columns: 1fr;
   }
 
   .prediction-cards {
     grid-template-columns: 1fr;
   }
 
-  .phase-cards {
+  .resources-grid {
     grid-template-columns: 1fr;
-  }
-
-  .calendar-day {
-    font-size: 0.9rem;
   }
 
   .phase-recommendations {
     grid-template-columns: 1fr;
   }
 
-  .recommendation-section {
-    padding: 1rem;
+  .main-content {
+    margin: 5rem 1rem 1rem 1rem;
   }
 
-  #phase-display {
-    padding: 1.5rem;
+  .calendar-day {
+    width: 2rem;
+    height: 2rem;
+    font-size: 0.9rem;
   }
 
-  .resources-filters {
-    justify-content: center;
+  .calendar-header span {
+    font-size: 0.9rem;
   }
 
-  .filter-btn {
-    padding: 0.5rem 1rem;
-  }
-
-  .resources-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .modal-content {
-    margin: 10% 5%;
-    padding: 1.5rem;
+  .primary-button {
+    width: 100%;
   }
 }
 
@@ -925,11 +1044,11 @@ input[type="text"]:focus {
 }
 
 /* Phase Box Styling */
-.phase-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.phase-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   gap: 20px;
+  padding: 1rem;
 }
 
 .phase-box {
@@ -1042,4 +1161,81 @@ input[type="text"]:focus {
 .dropdown-content p {
   line-height: 1.6;
   color: var(--text-dark);
+}
+
+/* Add these animation keyframes */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Add these classes for animations */
+.animate {
+  opacity: 0;
+}
+
+.animate.slide-in-left {
+  animation: slideInLeft 0.8s ease forwards;
+}
+
+.animate.slide-in-right {
+  animation: slideInRight 0.8s ease forwards;
+}
+
+.animate.fade-in-up {
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* Add animation delay utilities */
+.delay-1 {
+  animation-delay: 0.2s;
+}
+
+.delay-2 {
+  animation-delay: 0.4s;
+}
+
+.delay-3 {
+  animation-delay: 0.6s;
+}
+
+/* Add smooth transitions for menu elements */
+.navbar {
+  transition: right 0.3s ease-in-out;
+}
+
+.overlay {
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.nav-open-btn .line {
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
