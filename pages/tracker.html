@@ -15,6 +15,26 @@
     href="https://fonts.googleapis.com/css2?family=Cuprum:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap"
     rel="stylesheet"
   />
+  <style>
+    .dropdown-content {
+      display: none;
+      position: relative; /* Change to relative to affect layout */
+      z-index: 1;
+      width: 100%;
+      margin-top: 10px; /* Add some space above the dropdown */
+    }
+
+    .dropdown-btn.inverted {
+      transform: rotate(180deg);
+    }
+
+    .phase-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+  </style>
 </head>
 
 <body>
@@ -204,7 +224,7 @@
             <div class="dropdown-content" style="display: none;">
               <p>After the follicle releases its egg, it changes into the corpus luteum. This structure releases hormones, mainly progesterone and some estrogen. The rise in hormones keeps your uterine lining thick and ready for a fertilized egg to implant. If you do get pregnant, your body will produce human chorionic gonadotropin (hCG). This is the hormone pregnancy tests detect. It helps maintain the corpus luteum and keeps the uterine lining thick. If you don't get pregnant, the corpus luteum will shrink away and be resorbed. This leads to decreased levels of estrogen and progesterone, which causes the onset of your period. The uterine lining will shed during your period.</p>
             </div>
-          </div>
+          </div>
         </div>
       </section>
 
@@ -291,6 +311,31 @@
         // Toggle the clicked dropdown
         let content = this.nextElementSibling;
         content.classList.toggle('show');
+      });
+    });
+  </script>
+  <script>
+    document.querySelectorAll('.phase-box').forEach(box => {
+      const button = box.querySelector('.dropdown-btn');
+      const details = box.querySelector('.dropdown-content');
+
+      button.addEventListener('click', () => {
+        // Close all other dropdowns
+        document.querySelectorAll('.dropdown-content').forEach(detail => {
+          if (detail !== details) {
+            detail.style.display = 'none';
+            detail.previousElementSibling.classList.remove('inverted');
+          }
+        });
+
+        // Toggle the current dropdown
+        if (details.style.display === 'block') {
+          details.style.display = 'none';
+          button.classList.remove('inverted');
+        } else {
+          details.style.display = 'block';
+          button.classList.add('inverted');
+        }
       });
     });
   </script>

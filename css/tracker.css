@@ -469,6 +469,10 @@ input[type="text"]:focus {
 
 
 /* Education Section */
+.education-section {
+  margin-top: 6rem;
+}
+
 .phase-cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -616,7 +620,7 @@ input[type="text"]:focus {
   background: var(--white);
   border-radius: var(--border-radius);
   padding: 2rem;
-  margin-bottom: 2rem;
+  margin: 6rem 0 6rem 0;
   box-shadow: var(--shadow);
 }
 
@@ -629,19 +633,19 @@ input[type="text"]:focus {
 
 .filter-btn {
   padding: 0.75rem 1.5rem;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--primary-dark);
   border-radius: var(--border-radius);
   background: transparent;
-  color: var(--primary-color);
+  color: var(--primary-dark);
   cursor: pointer;
   transition: all 0.3s ease;
   font-weight: 500;
-  font-size: var(--fs-8);
+  font-size: var(--fs-12);
 }
 
 .filter-btn:hover,
 .filter-btn.active {
-  background: var(--primary-color);
+  background: var(--primary-dark);
   color: var(--white);
 }
 
@@ -694,19 +698,19 @@ input[type="text"]:focus {
 }
 
 .resource-link {
-  color: var(--primary-color);
+  color: var(--primary-dark);
   text-decoration: none;
   font-weight: 500;
   display: inline-block;
   padding: 0.5rem 1rem;
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--primary-dark);
   border-radius: var(--border-radius);
   transition: all 0.3s ease;
-  font-size: var(--fs-8);
+  font-size: 1rem;
 }
 
 .resource-link:hover {
-  background: var(--primary-color);
+  background: var(--primary-dark);
   color: var(--white);
 }
 
