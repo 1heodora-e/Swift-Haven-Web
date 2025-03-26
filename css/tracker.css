@@ -95,8 +95,8 @@ body {
   height: auto;
 }
 
-.logo-wrapper h6 {
-  font-size: 20px;
+.logo-wrapper p {
+  font-size: 15px;
   font-weight: 600;
   color: var(--primary-dark);
 }
