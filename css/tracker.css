@@ -77,9 +77,28 @@ body {
   padding: 0 5%;
 }
 
+.logo-container {
+  display: flex;
+  justify-content: space-between; /* Adjust as needed */
+  align-items: center;
+  gap: 20px; /* Space between logos */
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between logo and text */
+}
+
 .logo {
-  height: 5rem; /* Increased size for the logo */
-  display: block;
+  width: 100px; /* Adjust size as needed */
+  height: auto;
+}
+
+.logo-wrapper h6 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary-dark);
 }
 
 /* Desktop Navigation */
@@ -472,6 +491,9 @@ input[type="text"]:focus {
 .education-section {
   margin-top: 6rem;
 }
+.education-section h6 {
+  color: var(--primary-dark);
+}
 
 .phase-cards {
   display: grid;
@@ -492,6 +514,11 @@ input[type="text"]:focus {
 }
 
 /* History Section */
+
+.history-section h6 {
+  color: var(--primary-dark);
+}
+
 .history-list {
   max-height: 300px;
   overflow-y: auto;
@@ -624,6 +651,10 @@ input[type="text"]:focus {
   box-shadow: var(--shadow);
 }
 
+.resources-section h6 {
+  color: var(--primary-dark);
+}
+
 .resources-filters {
   display: flex;
   gap: 1rem;
@@ -639,8 +670,8 @@ input[type="text"]:focus {
   color: var(--primary-dark);
   cursor: pointer;
   transition: all 0.3s ease;
-  font-weight: 500;
-  font-size: var(--fs-12);
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .filter-btn:hover,
@@ -685,10 +716,10 @@ input[type="text"]:focus {
   color: var(--white);
 }
 
-.resource-card h3 {
-  color: var(--primary-dark);
+.resource-card h6 {
+  color: var(--primary-color);
   margin-bottom: 1rem;
-  font-size: var(--fs-5);
+  font-size: 1.5rem;
 }
 
 .resource-card p {
@@ -913,6 +944,10 @@ input[type="text"]:focus {
   align-items: center;
   padding: 20px;
   transition: transform 0.3s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .phase-box:hover {
@@ -985,11 +1020,19 @@ input[type="text"]:focus {
 .dropdown-btn i {
   transition: transform 0.3s ease;
 }
+.dropdown-btn.inverted {
+  transform: rotate(180deg);
+}
 
 .dropdown-content {
   overflow: hidden;
   max-height: 0;
   transition: max-height 0.3s ease-out;
+  display: none;
+  position: relative; /* Change to relative to affect layout */
+  z-index: 1;
+  width: 100%;
+  margin-top: 15px; /* Add some space above the dropdown */
 }
 
 .dropdown-content.show {

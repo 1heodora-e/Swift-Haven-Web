@@ -439,10 +439,10 @@ class CycleWise {
           'cycle-guide': {
               title: 'Understanding Your Menstrual Cycle',
               content: `
-                  <h2>Your Complete Guide to the Menstrual Cycle</h2>
+                  <h6 style="text-align: left;">Your Complete Guide to the Menstrual Cycle</h6>
                   <p>Your menstrual cycle is a natural, healthy process that your body goes through each month. Understanding each phase can help you better manage your health and well-being.</p>
                   
-                  <h3>The Four Phases of Your Cycle</h3>
+                  <h6 style="text-align: left;">The Four Phases of Your Cycle</h6>
                   <ul>
                       <li><strong>Menstrual Phase (Days 1-5):</strong> This is when your period occurs. Your body is shedding the uterine lining that built up in preparation for pregnancy.</li>
                       <li><strong>Follicular Phase (Days 6-14):</strong> Your body prepares for ovulation. Estrogen levels rise, boosting your energy and mood.</li>
@@ -450,10 +450,10 @@ class CycleWise {
                       <li><strong>Luteal Phase (Days 17-28):</strong> Your body prepares either for pregnancy or menstruation. You might experience PMS symptoms during this time.</li>
                   </ul>
 
-                  <h3>Tracking Your Cycle</h3>
+                  <h6 style="text-align: left;">Tracking Your Cycle</h6>
                   <p>Every person's cycle is unique, and that's completely normal! While the average cycle is 28 days, anything from 21-35 days is considered normal. The key is understanding your personal pattern.</p>
 
-                  <h3>Signs to Watch For</h3>
+                  <h6 style="text-align: left;">Signs to Watch For</h6>
                   <ul>
                       <li>Changes in energy levels</li>
                       <li>Mood fluctuations</li>
@@ -466,10 +466,10 @@ class CycleWise {
           'nutrition': {
               title: 'Nutrition and Your Cycle',
               content: `
-                  <h2>Eating for Your Cycle</h2>
+                  <h6 style="text-align: left;">Eating for Your Cycle</h6>
                   <p>Your nutritional needs change throughout your cycle. Here's how to nourish your body during each phase:</p>
 
-                  <h3>Menstrual Phase</h3>
+                  <h6 style="text-align: left;">Menstrual Phase</h6>
                   <ul>
                       <li>Iron-rich foods (leafy greens, red meat)</li>
                       <li>Foods high in vitamin C (citrus fruits, berries)</li>
@@ -477,7 +477,7 @@ class CycleWise {
                       <li>Stay hydrated with water and herbal teas</li>
                   </ul>
 
-                  <h3>Follicular Phase</h3>
+                  <h6 style="text-align: left;">Follicular Phase</h6>
                   <ul>
                       <li>Light, fresh foods</li>
                       <li>Fermented foods for gut health</li>
@@ -485,7 +485,7 @@ class CycleWise {
                       <li>Fresh fruits and vegetables</li>
                   </ul>
 
-                  <h3>Ovulation Phase</h3>
+                  <h6 style="text-align: left;">Ovulation Phase</h6>
                   <ul>
                       <li>Raw fruits and vegetables</li>
                       <li>Lean proteins</li>
@@ -493,7 +493,7 @@ class CycleWise {
                       <li>Stay well hydrated</li>
                   </ul>
 
-                  <h3>Luteal Phase</h3>
+                  <h6 style="text-align: left;">Luteal Phase</h6>
                   <ul>
                       <li>Complex carbohydrates</li>
                       <li>Magnesium-rich foods (nuts, seeds)</li>
@@ -505,13 +505,13 @@ class CycleWise {
           'exercise': {
               title: 'Exercise and Your Cycle',
               content: `
-                  <h2>Cycle-Synced Workouts</h2>
+                  <h6 style="text-align: left;">Cycle-Synced Workouts</h6>
                   <div class="video-container">
-                      <iframe src="https://www.youtube.com/embed/placeholder" frameborder="0" allowfullscreen></iframe>
+                      <iframe src="https://www.youtube.com/embed/PBd2CZC-JIE" frameborder="0" allowfullscreen></iframe>
                   </div>
                   <p>Learn how to adjust your workout routine according to your cycle phases:</p>
                   
-                  <h3>Recommended Activities by Phase</h3>
+                  <h6 style="text-align: left;">Recommended Activities by Phase</h6>
                   <ul>
                       <li><strong>Menstrual Phase:</strong> Gentle yoga, walking, light stretching</li>
                       <li><strong>Follicular Phase:</strong> High-intensity workouts, strength training</li>
@@ -523,13 +523,13 @@ class CycleWise {
           'stress': {
               title: 'Stress Management Techniques',
               content: `
-                  <h2>Managing Stress Throughout Your Cycle</h2>
+                  <h6 style="text-align: left;">Managing Stress Throughout Your Cycle</h6>
                   <div class="video-container">
-                      <iframe src="https://www.youtube.com/embed/placeholder" frameborder="0" allowfullscreen></iframe>
+                      <iframe src="https://www.youtube.com/embed/M0quxzUtqEg" frameborder="0" allowfullscreen></iframe>
                   </div>
                   <p>Different stress management techniques work better during different phases of your cycle. Here's your guide:</p>
 
-                  <h3>Phase-Specific Techniques</h3>
+                  <h6 style="text-align: left;">Phase-Specific Techniques</h6>
                   <ul>
                       <li><strong>Menstrual Phase:</strong> Meditation, gentle breathing exercises</li>
                       <li><strong>Follicular Phase:</strong> Journaling, creative activities</li>
@@ -541,10 +541,10 @@ class CycleWise {
           'pms': {
               title: 'PMS Management Guide',
               content: `
-                  <h2>Natural PMS Management Strategies</h2>
+                  <h6 style="text-align: left;">Natural PMS Management Strategies</h6>
                   <p>PMS affects everyone differently. Here are evidence-based strategies to help manage common symptoms:</p>
 
-                  <h3>Physical Symptoms</h3>
+                  <h6 style="text-align: left;">Physical Symptoms</h6>
                   <ul>
                       <li>Regular exercise</li>
                       <li>Adequate sleep (7-9 hours)</li>
@@ -552,7 +552,7 @@ class CycleWise {
                       <li>Dietary adjustments</li>
                   </ul>
 
-                  <h3>Emotional Symptoms</h3>
+                  <h6 style="text-align: left;">Emotional Symptoms</h6>
                   <ul>
                       <li>Stress management techniques</li>
                       <li>Support group participation</li>
@@ -560,7 +560,7 @@ class CycleWise {
                       <li>Regular self-care routines</li>
                   </ul>
 
-                  <h3>Lifestyle Changes</h3>
+                  <h6 style="text-align: left;">Lifestyle Changes</h6>
                   <ul>
                       <li>Reducing caffeine and alcohol</li>
                       <li>Maintaining a regular sleep schedule</li>
@@ -572,12 +572,12 @@ class CycleWise {
           'faq': {
               title: 'Menstrual Health FAQ',
               content: `
-                  <h2>Frequently Asked Questions</h2>
+                  <h6 style="text-align: left;">Frequently Asked Questions</h6>
                   
-                  <h3>What's considered a normal cycle length?</h3>
+                  <h6 style="text-align: left;">What's considered a normal cycle length?</h6>
                   <p>A normal cycle can range from 21-35 days. The average is 28 days, but everyone is different!</p>
 
-                  <h3>When should I see a healthcare provider?</h3>
+                  <h6 style="text-align: left;">When should I see a healthcare provider?</h6>
                   <p>Consult a healthcare provider if you experience:</p>
                   <ul>
                       <li>Very heavy bleeding</li>
@@ -586,7 +586,7 @@ class CycleWise {
                       <li>Bleeding between periods</li>
                   </ul>
 
-                  <h3>How can I track my cycle effectively?</h3>
+                  <h6 style="text-align: left;">How can I track my cycle effectively?</h6>
                   <p>Use our tracker to log:</p>
                   <ul>
                       <li>Period start and end dates</li>
@@ -595,7 +595,7 @@ class CycleWise {
                       <li>Sleep patterns</li>
                   </ul>
 
-                  <h3>Can lifestyle changes affect my cycle?</h3>
+                  <h6 style="text-align: left;">Can lifestyle changes affect my cycle?</h6>
                   <p>Yes! The following factors can impact your cycle:</p>
                   <ul>
                       <li>Stress levels</li>
