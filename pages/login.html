@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CycleWise - Login</title>
+    <link rel="stylesheet" href="assets/css/tracker.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/images/favicon.png">
+    <style>
+        .auth-form {
+            display: none;
+        }
+        .auth-form.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-box">
+            <img src="assets/images/logo.png" alt="CycleWise Logo" style="width: 180px; margin-bottom: 1.5rem;">
+            <h1>Welcome Back</h1>
+            <p class="auth-subtitle">Track your cycle with confidence and care</p>
+
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login">Login</button>
+                <button class="auth-tab" data-tab="signup">Sign Up</button>
+            </div>
+
+            <form id="loginForm" class="auth-form active">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    <a href="#" class="forgot-password" id="forgotPassword">Forgot Password?</a>
+                </div>
+                <button type="submit" class="auth-button">Log In</button>
+                
+                <div class="auth-divider">
+                    <span>or continue with</span>
+                </div>
+                
+                <button type="button" class="google-auth-button" id="googleSignIn">
+                    <img src="assets/images/google-icon.png" alt="Google">
+                    Sign in with Google
+                </button>
+            </form>
+
+            <form id="signupForm" class="auth-form">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" required placeholder="Choose a password">
+                </div>
+                <div class="form-group">
+                    <label for="signupConfirmPassword">Confirm Password</label>
+                    <input type="password" id="signupConfirmPassword" required placeholder="Confirm your password">
+                </div>
+                <button type="submit" class="auth-button">Create Account</button>
+                
+                <div class="auth-divider">
+                    <span>or sign up with</span>
+                </div>
+                
+                <button type="button" class="google-auth-button" id="googleSignUp">
+                    <img src="assets/images/google-icon.png" alt="Google">
+                    Sign up with Google
+                </button>
+            </form>
+
+            <div id="authMessage" class="auth-message"></div>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore-compat.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script>
+        // Initialize tab switching
+        document.addEventListener('DOMContentLoaded', () => {
+            const tabs = document.querySelectorAll('.auth-tab');
+            const forms = document.querySelectorAll('.auth-form');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Update tab styles
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+
+                    // Show corresponding form
+                    const targetForm = tab.dataset.tab;
+                    forms.forEach(form => {
+                        form.classList.remove('active');
+                        if (form.id === `${targetForm}Form`) {
+                            form.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CycleWise - Your Personal Period Tracker</title>
+  <link rel="stylesheet" href="/css/tracker.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cuprum:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header" data-header>
+      <div class="container">
+        <div class="navbar-wrapper">
+          <div class="logo-container">
+            <div class="logo-wrapper">
+              <a href="/">
+                <img src="/assets/images/Cycle Wise Logo.png" alt="logo" class="logo">
+              </a>
+              <p>By Swift Haven</p>
+            </div>
+          </div>
+          
+          <!-- Desktop Navigation -->
+          <nav class="desktop-nav"> 
+            <ul class="navbar-list">
+              <li><a href="/index.html" class="navbar-link" data-nav-link>Home</a></li>
+              <li><a href="/index.html#mission" class="navbar-link" data-nav-link>About</a></li>
+              <li><a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a></li>
+            </ul>
+          </nav>
+
+          <!-- Hamburger Menu Button -->
+          <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="overlay" data-nav-toggler data-overlay></div>
+    <div class="navbar" data-navbar>
+      <div class="wrapper">
+        <a href="/">
+          <img src="/assets/images/Cycle Wise Logo.png" alt="logo" class="logo">
+        </a>
+        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav>
+        <ul class="mobile-navbar-list">
+          <li><a href="/index.html" class="navbar-link" data-nav-link>Home</a></li>
+          <li><a href="/index.html#mission" class="navbar-link" data-nav-link>About</a></li>
+          <li><a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="main-content">
+
+      <div class="grid-container">
+        <section class="input-section animate slide-in-left">
+          <h6>Log Your Period</h6>
+          <div class="form-group">
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" required>
+          </div>
+          <div class="form-group">
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date">
+          </div>
+          <div class="form-group">
+            <label for="symptoms">Symptoms:</label>
+            <div class="symptoms-container">
+              <div class="symptom-chips">
+                <span class="chip" data-symptom="cramps">Cramps</span>
+                <span class="chip" data-symptom="headache">Headache</span>
+                <span class="chip" data-symptom="mood-swings">Mood Swings</span>
+                <span class="chip" data-symptom="fatigue">Fatigue</span>
+                <span class="chip" data-symptom="bloating">Bloating</span>
+              </div>
+              <input type="text" id="symptoms" placeholder="Add custom symptoms">
+            </div>
+          </div>
+          <button id="add-entry" class="primary-button">Save Entry</button>
+        </section>
+        <section class="calendar-section">
+          <h6>Calendar View</h6>
+          <div class="calendar-controls">
+            <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+            <h6 id="current-month">March 2025</h6>
+            <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+          </div>
+          <div class="calendar-header">
+            <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span>
+            <span>Thu</span><span>Fri</span><span>Sat</span>
+          </div>
+          <div id="calendar" class="calendar-grid"></div>
+        </section>
+      </div>
+
+      <section class="prediction-section animate fade-in-up">
+        <h3 class="prediction-header">Cycle Insights</h3>
+        <div class="prediction-cards">
+          <div class="prediction-card">
+            <i class="fas fa-calendar"></i>
+            <h6>Next Period</h6>
+            <p id="next-period">Calculating...</p>
+          </div>
+          <div class="prediction-card">
+            <i class="fas fa-chart-line"></i>
+            <h6>Cycle Length</h6>
+            <p id="cycle-length">Calculating...</p>
+          </div>
+          <div class="prediction-card">
+            <i class="fas fa-egg"></i>
+            <h6>Ovulation</h6 >
+            <p id="ovulation-date">Calculating...</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="cycle-phase-indicator animate fade-in-up">
+        <h6>Your Current Cycle Phase</h6>
+        <div id="phase-display">
+          <div class="phase-info">
+            <h3 id="current-phase">Loading...</h3>
+            <p id="phase-description"></p>
+            <div class="phase-recommendations">
+              <div class="recommendation-section">
+                <h4>How You Might Be Feeling</h4>
+                <p id="phase-feelings"></p>
+              </div>
+              <div class="recommendation-section">
+                <h4>Self-Care Tips</h4>
+                <p id="phase-tips"></p>
+              </div>
+              <div class="recommendation-section">
+                <h4>Nutrition Guide</h4>
+                <p id="phase-nutrition"></p>
+              </div>
+              <div class="recommendation-section">
+                <h4>Lifestyle Recommendations</h4>
+                <p id="phase-lifestyle"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="education-section animate slide-in-left">
+        <h6>Learn About Your Cycle</h6>
+        <div class="phase-container">
+          <div class="phase-box">
+            <div class="phase-icon"><i class="fas fa-tint"></i></div>
+            <div class="phase-name">Menstrual Phase</div>
+            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content" style="display: none; text-align: justify;">
+              <p>The menstrual phase is the first stage of the menstrual cycle. It's also when you get your period. This phase starts when an egg from the previous cycle isn't fertilized. Because pregnancy hasn't taken place, levels of the hormones estrogen and progesterone drop. Thickened lining of your uterus, which would support a pregnancy, is no longer needed, so it sheds through your vagina. During your period, you shed a combination of blood, mucus, and tissue from your uterus.</p>
+            </div>
+          </div>
+        
+          <div class="phase-box">
+            <div class="phase-icon"><i class="fas fa-seedling"></i></div>
+            <div class="phase-name">Follicular Phase</div>
+            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content" style="display: none; text-align: justify;">
+              <p>The follicular phase starts on the first day of your period (so there is some overlap with the menstrual phase) and ends when you ovulate. It starts when the hypothalamus sends a signal to your pituitary gland to release follicle-stimulating hormone (FSH). This hormone stimulates your ovaries to produce around 5 to 20 small sacs called follicles. Each follicle contains an immature egg. Only the healthiest egg will eventually mature. (On rare occasions, a woman may have two eggs mature.) The rest of the follicles will be reabsorbed into your body. The maturing follicle sets off a surge in estrogen that thickens the lining of your uterus. This creates a nutrient-rich environment for an embryo to grow.</p>
+            </div>
+          </div>
+        
+          <div class="phase-box">
+            <div class="phase-icon"><i class="fas fa-egg"></i></div>
+            <div class="phase-name">Ovulation Phase</div>
+            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content" style="display: none; text-align: justify;">
+              <p>Rising estrogen levels during the follicular phase trigger your pituitary gland to release luteinizing hormone (LH). This is what starts the process of ovulation. Ovulation occurs when your ovary releases a mature egg. The egg travels down the fallopian tube toward the uterus to be fertilized by sperm. The ovulation phase is the only time during your menstrual cycle when you can get pregnant. You can tell that you're ovulating by symptoms like these: a slight rise in basal body temperature, thicker discharge that has the texture of egg whites.</p>
+            </div>
+          </div>
+        
+          <div class="phase-box">
+            <div class="phase-icon"><i class="fas fa-moon"></i></div>
+            <div class="phase-name">Luteal Phase</div>
+            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
+            <div class="dropdown-content" style="display: none; text-align: justify;">
+              <p>After the follicle releases its egg, it changes into the corpus luteum. This structure releases hormones, mainly progesterone and some estrogen. The rise in hormones keeps your uterine lining thick and ready for a fertilized egg to implant. If you do get pregnant, your body will produce human chorionic gonadotropin (hCG). This is the hormone pregnancy tests detect. It helps maintain the corpus luteum and keeps the uterine lining thick. If you don't get pregnant, the corpus luteum will shrink away and be resorbed. This leads to decreased levels of estrogen and progesterone, which causes the onset of your period. The uterine lining will shed during your period.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="resources-section animate slide-in-right">
+        <h6>Educational Resources</h6>
+        <div class="resources-container">
+          <div class="resources-filters">
+            <button class="filter-btn active" data-filter="all">All Resources</button>
+            <button class="filter-btn" data-filter="articles">Articles</button>
+            <button class="filter-btn" data-filter="videos">Videos</button>
+            <button class="filter-btn" data-filter="guides">Guides</button>
+          </div>
+
+          <div class="resources-grid">
+            <!-- Articles -->
+            <div class="resource-card" data-type="articles">
+              <div class="resource-icon"><i class="fas fa-book-open"></i></div>
+              <h6>Understanding Your Menstrual Cycle</h6>
+              <p>A comprehensive guide to the four phases of your menstrual cycle and what to expect during each phase.</p>
+              <a href="#" class="resource-link" data-resource="cycle-guide">Read More</a>
+            </div>
+
+            <div class="resource-card" data-type="articles">
+              <div class="resource-icon"><i class="fas fa-apple-alt"></i></div>
+              <h6>Nutrition and Your Cycle</h6>
+              <p>Learn about the best foods to eat during each phase of your cycle to support your hormonal health.</p>
+              <a href="#" class="resource-link" data-resource="nutrition">Read More</a>
+            </div>
+
+            <!-- Videos -->
+            <div class="resource-card" data-type="videos">
+              <div class="resource-icon"><i class="fas fa-video"></i></div>
+              <h6>Exercise and Your Cycle</h6>
+              <p>Video guides on how to adjust your workout routine according to your menstrual cycle phases.</p>
+              <a href="https://www.youtube.com/embed/PBd2CZC-JIE" class="resource-link" data-resource="exercise">Watch Now</a>
+            </div>
+
+            <div class="resource-card" data-type="videos">
+              <div class="resource-icon"><i class="fas fa-video"></i></div>
+              <h6>Stress Management Techniques</h6>
+              <p>Video demonstrations of stress-relief exercises tailored for different cycle phases.</p>
+              <a href="https://www.youtube.com/embed/M0quxzUtqEg" class="resource-link" data-resource="stress">Watch Now</a>
+            </div>
+
+            <!-- Guides -->
+            <div class="resource-card" data-type="guides">
+              <div class="resource-icon"><i class="fas fa-file-alt"></i></div>
+              <h6>PMS Management Guide</h6>
+              <p>Practical tips and strategies for managing PMS symptoms naturally.</p>
+              <a href="#" class="resource-link" data-resource="pms">Download Guide</a>
+            </div>
+
+            <div class="resource-card" data-type="guides">
+              <div class="resource-icon"><i class="fas fa-file-alt"></i></div>
+              <h6>Menstrual Health FAQ</h6>
+              <p>Answers to common questions about menstrual health, symptoms, and cycle variations.</p>
+              <a href="#" class="resource-link" data-resource="faq">Read FAQ</a>
+            </div>
+          </div>
+        </div>
+
+        <div id="resource-modal" class="modal">
+          <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="resource-content"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="history-section animate fade-in-up">
+        <h6>History</h6>
+        <div class="history-list" id="history-list"></div>
+      </section>
+    </div>
+  </div>
+  <script>
+    document.querySelectorAll('.dropdown-btn').forEach(button => {
+      button.addEventListener('click', function() {
+        // Close all dropdowns
+        document.querySelectorAll('.dropdown-content').forEach(content => {
+          content.classList.remove('show');
+        });
+        
+        // Toggle the clicked dropdown
+        let content = this.nextElementSibling;
+        content.classList.toggle('show');
+      });
+    });
+  </script>
+  <script>
+    document.querySelectorAll('.phase-box').forEach(box => {
+      const button = box.querySelector('.dropdown-btn');
+      const details = box.querySelector('.dropdown-content');
+
+      button.addEventListener('click', () => {
+        // Close all other dropdowns
+        document.querySelectorAll('.dropdown-content').forEach(detail => {
+          if (detail !== details) {
+            detail.style.display = 'none';
+            detail.previousElementSibling.classList.remove('inverted');
+          }
+        });
+
+        // Toggle the current dropdown
+        if (details.style.display === 'block') {
+          details.style.display = 'none';
+          button.classList.remove('inverted');
+        } else {
+          details.style.display = 'block';
+          button.classList.add('inverted');
+        }
+      });
+    });
+  </script>
+  <script src="/js/script.js"></script>
+  <script src="/js/tracker.js"></script>
+</body>
+</html>
