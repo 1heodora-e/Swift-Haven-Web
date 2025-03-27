@@ -349,3 +349,48 @@ class AuthManager {
 
 // Initialize authentication
 const authManager = new AuthManager();
+
+// Mobile Navigation Toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+  const navbar = document.querySelector("[data-navbar]");
+  const overlay = document.querySelector("[data-overlay]");
+
+  function toggleNav() {
+    navbar.classList.toggle("active");
+    overlay.classList.toggle("active");
+    document.body.classList.toggle("nav-active");
+  }
+
+  // Add click listeners to all toggle buttons
+  navTogglers.forEach(toggler => {
+    toggler.addEventListener("click", (e) => {
+      e.stopPropagation(); // Prevent event bubbling
+      toggleNav();
+    });
+  });
+
+  // Close menu when clicking links
+  document.querySelectorAll('.mobile-navbar-list .navbar-link').forEach(link => {
+    link.addEventListener('click', () => {
+      navbar.classList.remove('active');
+      overlay.classList.remove('active');
+      document.body.classList.remove('nav-active');
+    });
+  });
+
+  // Close menu when clicking overlay
+  overlay.addEventListener('click', (e) => {
+    e.stopPropagation(); // Prevent event bubbling
+    if (navbar.classList.contains('active')) {
+      toggleNav();
+    }
+  });
+
+  // Close menu when pressing Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navbar.classList.contains('active')) {
+      toggleNav();
+    }
+  });
+});
