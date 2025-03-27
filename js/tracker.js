@@ -75,6 +75,71 @@ class CycleWise {
               closeMenu();
           }
       });
+
+      // Modal handling
+      const modal = document.getElementById('resource-modal');
+      const modalContent = document.getElementById('resource-content');
+      const closeModal = document.querySelector('.close-modal');
+      const mainContent = document.querySelector('.main-content');
+
+      // Function to position modal near clicked element
+      function openModalNearTrigger(event, modalContent) {
+          const trigger = event.currentTarget;
+          const triggerRect = trigger.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          
+          // Calculate position
+          const modalTop = triggerRect.top + scrollTop;
+          
+          // Scroll to the modal position
+          window.scrollTo({
+              top: modalTop - 100, // Offset to show some context
+              behavior: 'smooth'
+          });
+      }
+
+      // Open modal when clicking resource links
+      document.querySelectorAll('.resource-link').forEach(link => {
+          link.addEventListener('click', (e) => {
+              e.preventDefault();
+              
+              // Add blur to main content
+              mainContent.classList.add('modal-open');
+              
+              // Show modal
+              modal.classList.add('active');
+              
+              // Position modal near clicked element
+              openModalNearTrigger(e, modalContent);
+          });
+      });
+
+      // Close modal when clicking close button
+      closeModal.addEventListener('click', () => {
+          modal.classList.remove('active');
+          mainContent.classList.remove('modal-open');
+      });
+
+      // Close modal when clicking outside
+      modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+              modal.classList.remove('active');
+              mainContent.classList.remove('modal-open');
+          }
+      });
+
+      // Prevent modal content clicks from closing the modal
+      modalContent.addEventListener('click', (e) => {
+          e.stopPropagation();
+      });
+
+      // Handle escape key
+      document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && modal.classList.contains('active')) {
+              modal.classList.remove('active');
+              mainContent.classList.remove('modal-open');
+          }
+      });
   }
 
   toggleSymptom(chip) {

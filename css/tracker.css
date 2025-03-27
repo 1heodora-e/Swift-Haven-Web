@@ -849,33 +849,86 @@ input[type="text"]:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: 2000;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+/* Add a separate backdrop div for the blur effect */
+.modal::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: -1;
 }
 
 .modal-content {
   position: relative;
   background: var(--white);
-  margin: 5% auto;
   padding: 2rem;
   width: 90%;
   max-width: 800px;
   border-radius: var(--border-radius);
-  max-height: 80vh;
-  overflow-y: auto;
+  margin: auto;
+  margin-top: 2rem;
+  z-index: 2001;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  /* Ensure modal content is clear */
+  backdrop-filter: none;
+  filter: none;
 }
 
 .close-modal {
   position: absolute;
-  right: 1rem;
   top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
   font-size: 2rem;
   cursor: pointer;
   color: var(--primary-dark);
+  z-index: 2002;
+  background: var(--white);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.close-modal:hover {
-  color: var(--primary-color);
+/* When modal is active */
+.modal.active {
+  display: block;
+}
+
+/* Remove any blur from the actual modal content */
+#resource-content {
+  background: var(--white);
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure other sections have lower z-index */
+.header {
+  z-index: 1000;
+}
+
+.navbar {
+  z-index: 1001;
+}
+
+.overlay {
+  z-index: 999;
+}
+
+.history-section {
+  z-index: 1;
+  position: relative;
 }
 
 /* Resource Content Styles */
