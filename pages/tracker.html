@@ -15,6 +15,23 @@
     href="https://fonts.googleapis.com/css2?family=Cuprum:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap"
     rel="stylesheet"
   />
+  
+  <!-- Firebase SDK -->
+  <script type="module" src="/js/firebase-config.js"></script>
+  
+  <!-- Auth Check Script -->
+  <script type="module">
+    // Check authentication state
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+    
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+        // No user is signed in, redirect to auth page
+        window.location.href = '/pages/auth.html';
+      }
+    });
+  </script>
 </head>
 
 <body>
@@ -37,6 +54,7 @@
               <li><a href="/index.html" class="navbar-link" data-nav-link>Home</a></li>
               <li><a href="/index.html#mission" class="navbar-link" data-nav-link>About</a></li>
               <li><a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a></li>
+              <li><a href="#" class="navbar-link" id="logout-link" data-nav-link>Logout</a></li>
             </ul>
           </nav>
 
@@ -66,6 +84,7 @@
           <li><a href="/index.html" class="navbar-link" data-nav-link>Home</a></li>
           <li><a href="/index.html#mission" class="navbar-link" data-nav-link>About</a></li>
           <li><a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a></li>
+          <li><a href="#" class="navbar-link" id="mobile-logout-link" data-nav-link>Logout</a></li>
         </ul>
       </nav>
     </div>
@@ -316,5 +335,36 @@
   </script>
   <script src="/js/script.js"></script>
   <script src="/js/tracker.js"></script>
+  <script type="module">
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+
+    // Handle logout
+    document.getElementById('logout-link').addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        const auth = getAuth();
+        await signOut(auth);
+        window.location.href = '/pages/auth.html';
+      } catch (error) {
+        console.error('Logout error:', error);
+      }
+    });
+  </script>
+  <script type="module">
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+
+    // Handle mobile logout
+    document.getElementById('mobile-logout-link').addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        const auth = getAuth();
+        await signOut(auth);
+        window.location.href = '/pages/auth.html';
+      } catch (error) {
+        console.error('Logout error:', error);
+      }
+    });
+  </script>
+  <script type="module" src="/js/history-tracker.js"></script>
 </body>
 </html>

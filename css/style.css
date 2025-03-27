@@ -300,6 +300,8 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  padding: 0 2rem;
 }
 
 .logo {
@@ -310,30 +312,98 @@ body {
   line-height: 1;
 }
 
+/* Mobile Navigation Button */
 .nav-open-btn {
-  color: var(--rich-black-fogra-29-1);
-  font-size: 35px;
+  display: none; /* Hidden by default */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  position: absolute; /* Add this */
+  right: 1rem; /* Add this */
+  top: 50%; /* Add this */
+  transform: translateY(-50%); /* Add this */
+  z-index: 1002;
 }
 
+.nav-open-btn .line {
+  display: block;
+  width: 25px;
+  height: 2px;
+  background-color: rgb(232, 70, 97);
+  margin: 5px 0;
+  transition: transform 0.3s ease;
+}
+
+/* Mobile Navigation */
 .navbar {
+  position: relative; /* Default position for desktop */
+  right: auto;
+  width: auto;
+  height: auto;
+  background: none;
+  padding: 0;
+  margin-left: auto;
+}
+
+.overlay {
   position: fixed;
   top: 0;
-  left: -280px;
-  max-width: 280px;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: var(--rich-black-fogra-39);
-  color: var(--white);
-  padding: 30px 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
   visibility: hidden;
-  transition: 0.25s var(--cubic-out);
-  z-index: 4;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 1000;
 }
 
-.navbar.active {
+.overlay.active {
+  opacity: 1;
   visibility: visible;
-  transform: translateX(280px);
-  transition-duration: 0.5s;
+}
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+  .nav-open-btn {
+    display: block; /* Show hamburger menu on mobile */
+  }
+
+  .navbar-list {
+    display: none; /* Hide desktop navigation */
+  }
+
+  .navbar {
+    position: fixed; /* Fixed position for mobile menu */
+    top: 0;
+    right: -100%;
+    width: 80%;
+    height: 100vh;
+    background-color: var(--white);
+    padding: 2rem;
+    transition: right 0.3s ease-in-out;
+    z-index: 1001;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .navbar.active {
+    right: 0;
+    display: block;
+  }
+
+  .navbar.active .navbar-list {
+    display: block;
+  }
+
+  .navbar-list li {
+    margin: 20px 0;
+  }
+
+  /* Prevent body scroll when menu is open */
+  body.nav-active {
+    overflow: hidden;
+  }
 }
 
 .navbar .logo,
@@ -346,7 +416,16 @@ body {
   margin-block-end: 25px;
 }
 
-.nav-close-btn { font-size: 30px; }
+.nav-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-color);
+}
 
 .navbar-link {
   padding-block: 10px;
@@ -355,19 +434,57 @@ body {
 
 .navbar-link:is(:hover, :focus) { color:rgb(232, 70, 97); }
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background-color: hsla(0, 0%, 100%, 0.7);
-  visibility: hidden;
-  opacity: 0;
-  transition: var(--transition-1);
-  z-index: 3;
+.mobile-navbar-list {
+  margin-top: 50px;
+  list-style: none;
+  padding: 0;
 }
 
-.overlay.active {
-  visibility: visible;
-  opacity: 1;
+.mobile-navbar-list li {
+  margin: 20px 0;
+}
+
+.mobile-navbar-list .navbar-link {
+  color: var(--text-color);
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s ease;
+}
+
+.mobile-navbar-list .navbar-link:hover {
+  color: var(--primary-color);
+}
+
+/* Animation for hamburger menu */
+.nav-open-btn.active .line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.nav-open-btn.active .line:nth-child(2) {
+  opacity: 0;
+}
+
+.nav-open-btn.active .line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .nav-open-btn {
+    display: block;
+  }
+
+  .desktop-nav {
+    display: none;
+  }
+
+  .navbar {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  body.nav-active {
+    overflow: hidden;
+  }
 }
 
 
@@ -1202,11 +1319,16 @@ video {
   .header { padding: 20px; }
 
   .navbar,
-  .navbar.active { all: unset; }
+  .navbar.active {
+    all: unset;
+    margin-left: auto;
+  }
 
   .navbar-list {
     display: flex;
     gap: 40px;
+    margin: 0;
+    padding: 0;
   }
 
   .navbar-link {
@@ -1304,6 +1426,10 @@ video {
   }
 
   .copyright { margin-block-end: 0; }
+
+  .logo {
+    margin-right: auto;
+  }
 
 }
 

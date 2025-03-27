@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CycleWise - Login/Signup</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/auth.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cuprum:wght@500;600;700&family=Poppins:wght@400;500;600&display=swap"
+    rel="stylesheet"
+  />
+  
+  <!-- Firebase SDK -->
+  <script type="module" src="/js/firebase-config.js"></script>
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="container">
+        <div class="navbar-wrapper">
+          <div class="logo-container">
+            <div class="logo-wrapper">
+              <a href="/">
+                <img src="/assets/images/Cycle Wise Logo.png" alt="logo" class="logo">
+              </a>
+              <p>By Swift Haven</p>
+            </div>
+          </div>
+          
+          <!-- Desktop Navigation -->
+          <nav class="desktop-nav">
+            <ul class="navbar-list">
+              <li><a href="/index.html" class="navbar-link">Home</a></li>
+              <li><a href="/index.html#mission" class="navbar-link">About</a></li>
+              <li><a href="/pages/Contact.html" class="navbar-link">Contact Us</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="overlay" data-nav-toggler data-overlay></div>
+    <div class="navbar" data-navbar>
+      <div class="wrapper">
+        <a href="/">
+          <img src="/assets/images/Cycle Wise Logo.png" alt="logo" class="logo">
+        </a>
+        <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <nav>
+        <ul class="mobile-navbar-list">
+          <li><a href="/index.html" class="navbar-link">Home</a></li>
+          <li><a href="/index.html#mission" class="navbar-link">About</a></li>
+          <li><a href="/pages/Contact.html" class="navbar-link">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="auth-container">
+      <div class="auth-box">
+        <div class="auth-tabs">
+          <button type="button" class="auth-tab active" data-tab="login">Login</button>
+          <button type="button" class="auth-tab" data-tab="signup">Sign Up</button>
+        </div>
+
+        <!-- Login Form -->
+        <form id="login-form" class="auth-form active">
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input type="email" id="login-email" required placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input type="password" id="login-password" required placeholder="Enter your password">
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+          <div class="auth-divider">
+            <span>OR</span>
+          </div>
+          <button type="button" class="btn btn-google" id="login-google-btn">
+            <img src="/assets/images/google-icon.png" alt="Google Icon" class="google-icon">
+            Continue with Google
+          </button>
+          <div class="auth-error" id="login-error"></div>
+        </form>
+
+        <!-- Signup Form -->
+        <form id="signup-form" class="auth-form">
+          <div class="form-group">
+            <label for="signup-name">Full Name</label>
+            <input type="text" id="signup-name" required placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="signup-email">Email</label>
+            <input type="email" id="signup-email" required placeholder="Enter your email">
+          </div>
+          <div class="form-group">
+            <label for="signup-password">Password</label>
+            <input type="password" id="signup-password" required placeholder="Choose a password">
+          </div>
+          <div class="form-group">
+            <label for="signup-confirm-password">Confirm Password</label>
+            <input type="password" id="signup-confirm-password" required placeholder="Confirm your password">
+          </div>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+          <div class="auth-divider">
+            <span>OR</span>
+          </div>
+          <button type="button" class="btn btn-google" id="signup-google-btn">
+            <img src="/assets/images/google-icon.png" alt="Google Icon" class="google-icon">
+            Continue with Google
+          </button>
+          <div class="auth-error" id="signup-error"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Script -->
+  <script type="module">
+    // Add GoogleAuthProvider to the imports
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+    import { getFirestore, setDoc, doc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+    console.log('Auth script loaded');
+
+    // Get Firebase instances
+    const auth = getAuth();
+    const db = getFirestore();
+
+    // DOM Elements
+    const loginForm = document.getElementById('login-form');
+    const signupForm = document.getElementById('signup-form');
+    const loginError = document.getElementById('login-error');
+    const signupError = document.getElementById('signup-error');
+    const authTabs = document.querySelectorAll('.auth-tab');
+    const authForms = document.querySelectorAll('.auth-form');
+
+    console.log('DOM elements loaded:', {
+      loginForm: !!loginForm,
+      signupForm: !!signupForm,
+      loginError: !!loginError,
+      signupError: !!signupError
+    });
+
+    // Replace the existing Tab Switching code with this:
+    document.addEventListener('DOMContentLoaded', () => {
+      const authTabs = document.querySelectorAll('.auth-tab');
+      const authForms = document.querySelectorAll('.auth-form');
+      const loginError = document.getElementById('login-error');
+      const signupError = document.getElementById('signup-error');
+
+      function switchTab(targetTab) {
+        // Update active tab
+        authTabs.forEach(tab => {
+          if (tab.dataset.tab === targetTab) {
+            tab.classList.add('active');
+          } else {
+            tab.classList.remove('active');
+          }
+        });
+        
+        // Update active form
+        authForms.forEach(form => {
+          if (form.id === `${targetTab}-form`) {
+            form.classList.add('active');
+          } else {
+            form.classList.remove('active');
+          }
+        });
+        
+        // Clear any existing error messages
+        loginError.textContent = '';
+        signupError.textContent = '';
+        loginError.classList.remove('active');
+        signupError.classList.remove('active');
+      }
+
+      // Add click event listeners to tabs
+      authTabs.forEach(tab => {
+        tab.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetTab = tab.dataset.tab;
+          switchTab(targetTab);
+        });
+      });
+
+      // Initialize with login form active
+      switchTab('login');
+    });
+
+    // Login Form Handler
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Update to use setDoc instead of set
+        await setDoc(doc(db, 'users', user.uid), {
+          lastLogin: serverTimestamp()
+        }, { merge: true });
+        
+        window.location.href = '/pages/tracker.html';
+      } catch (error) {
+        loginError.textContent = error.message;
+        loginError.classList.add('active');
+      }
+    });
+
+    // Signup Form Handler
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('signup-name').value;
+      const email = document.getElementById('signup-email').value;
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-confirm-password').value;
+      
+      if (password !== confirmPassword) {
+        signupError.textContent = 'Passwords do not match';
+        signupError.classList.add('active');
+        return;
+      }
+      
+      try {
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        
+        // Update to use setDoc instead of set
+        await setDoc(doc(db, 'users', user.uid), {
+          name: name,
+          email: email,
+          createdAt: serverTimestamp(),
+          lastLogin: serverTimestamp()
+        });
+        
+        window.location.href = '/pages/tracker.html';
+      } catch (error) {
+        signupError.textContent = error.message;
+        signupError.classList.add('active');
+      }
+    });
+
+    // Add Google Authentication Handler
+    const provider = new GoogleAuthProvider();
+    
+    async function handleGoogleAuth() {
+      try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+        
+        // Store user data in Firestore
+        await setDoc(doc(db, 'users', user.uid), {
+          name: user.displayName,
+          email: user.email,
+          photoURL: user.photoURL,
+          lastLogin: serverTimestamp()
+        }, { merge: true });
+        
+        window.location.href = '/pages/tracker.html';
+      } catch (error) {
+        console.error('Google auth error:', error);
+        const errorMessage = error.message || 'Failed to authenticate with Google';
+        loginError.textContent = errorMessage;
+        loginError.classList.add('active');
+        signupError.textContent = errorMessage;
+        signupError.classList.add('active');
+      }
+    }
+
+    // Add event listeners for Google sign-in buttons
+    document.getElementById('login-google-btn').addEventListener('click', handleGoogleAuth);
+    document.getElementById('signup-google-btn').addEventListener('click', handleGoogleAuth);
+
+    // Check authentication state
+    onAuthStateChanged(auth, user => {
+      console.log('Auth state changed:', user ? 'User logged in' : 'No user');
+      if (user) {
+        // User is signed in, redirect to tracker page
+        window.location.href = '/pages/tracker.html';
+      }
+    });
+  </script>
+
+  <!-- Mobile Navigation Script -->
+  <script>
+    // Mobile Navigation Toggle
+    const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+    const navbar = document.querySelector("[data-navbar]");
+    const overlay = document.querySelector("[data-overlay]");
+
+    navTogglers.forEach(toggler => {
+      toggler.addEventListener("click", () => {
+        navbar.classList.toggle("active");
+        overlay.classList.toggle("active");
+        document.body.classList.toggle("nav-active");
+      });
+    });
+  </script>
+</body>
+</html> 

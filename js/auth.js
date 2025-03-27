@@ -10,8 +10,123 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+
+// Import Firebase functions
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+import { getFirestore, doc, set, get, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-firestore.js";
+
+// Get Firebase instances
+const auth = getAuth();
+const db = getFirestore();
+
+// Import Firebase config
+importScripts('/js/firebase-config.js');
+
+// DOM Elements
+const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form');
+const loginError = document.getElementById('login-error');
+const signupError = document.getElementById('signup-error');
+const authTabs = document.querySelectorAll('.auth-tab');
+const authForms = document.querySelectorAll('.auth-form');
+
+// Tab Switching
+authTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const targetTab = tab.dataset.tab;
+    
+    // Update active tab
+    authTabs.forEach(t => {
+      if (t === tab) {
+        t.classList.add('active');
+      } else {
+        t.classList.remove('active');
+      }
+    });
+    
+    // Update active form
+    authForms.forEach(form => {
+      if (form.id === `${targetTab}-form`) {
+        form.classList.add('active');
+      } else {
+        form.classList.remove('active');
+      }
+    });
+    
+    // Clear any existing error messages
+    loginError.textContent = '';
+    loginError.classList.remove('active');
+    signupError.textContent = '';
+    signupError.classList.remove('active');
+  });
+});
+
+// Login Form Handler
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    
+    // Store user data in Firestore
+    await set(doc(db, 'users', user.uid), {
+      lastLogin: serverTimestamp()
+    }, { merge: true });
+    
+    // Redirect to tracker page
+    window.location.href = '/pages/tracker.html';
+  } catch (error) {
+    loginError.textContent = error.message;
+    loginError.classList.add('active');
+  }
+});
+
+// Signup Form Handler
+signupForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const name = document.getElementById('signup-name').value;
+  const email = document.getElementById('signup-email').value;
+  const password = document.getElementById('signup-password').value;
+  const confirmPassword = document.getElementById('signup-confirm-password').value;
+  
+  if (password !== confirmPassword) {
+    signupError.textContent = 'Passwords do not match';
+    signupError.classList.add('active');
+    return;
+  }
+  
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    
+    // Store user data in Firestore
+    await set(doc(db, 'users', user.uid), {
+      name: name,
+      email: email,
+      createdAt: serverTimestamp(),
+      lastLogin: serverTimestamp()
+    });
+    
+    // Redirect to tracker page
+    window.location.href = '/pages/tracker.html';
+  } catch (error) {
+    signupError.textContent = error.message;
+    signupError.classList.add('active');
+  }
+});
+
+// Check authentication state
+onAuthStateChanged(auth, user => {
+  if (user) {
+    // User is signed in, redirect to tracker page
+    window.location.href = '/pages/tracker.html';
+  }
+});
 
 class AuthManager {
     constructor() {
@@ -20,7 +135,7 @@ class AuthManager {
         this.redirectUrl = new URLSearchParams(window.location.search).get('redirect') || 'index';
         
         // Check if user is already logged in
-        auth.onAuthStateChanged(user => {
+        onAuthStateChanged(auth, user => {
             if (user && window.location.pathname.includes('login.html')) {
                 this.handleRedirect();
             }
@@ -110,7 +225,7 @@ class AuthManager {
     }
 
     setupAuthStateListener() {
-        auth.onAuthStateChanged(user => {
+        onAuthStateChanged(auth, user => {
             if (user) {
                 // User is signed in
                 this.getUserData(user.uid).then(userData => {
@@ -137,7 +252,7 @@ class AuthManager {
 
     async loginWithEmail(email, password) {
         try {
-            await auth.signInWithEmailAndPassword(email, password);
+            await signInWithEmailAndPassword(auth, email, password);
             this.showMessage('Login successful!', 'success');
         } catch (error) {
             throw error;
@@ -146,7 +261,7 @@ class AuthManager {
 
     async signUpWithEmail(email, password, name) {
         try {
-            const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             await this.createUserProfile(userCredential.user.uid, {
                 name,
                 email,
@@ -159,9 +274,10 @@ class AuthManager {
     }
 
     async signInWithGoogle() {
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new GoogleAuthProvider();
         try {
-            const result = await auth.signInWithPopup(provider);
+            console.log('Current domain:', window.location.hostname);
+            const result = await signInWithPopup(auth, provider);
             const user = result.user;
             
             // Check if user profile exists
@@ -177,13 +293,14 @@ class AuthManager {
             
             this.showMessage('Login successful!', 'success');
         } catch (error) {
+            console.error('Full auth error:', error);
             throw error;
         }
     }
 
     async resetPassword(email) {
         try {
-            await auth.sendPasswordResetEmail(email);
+            await sendPasswordResetEmail(auth, email);
             this.showMessage('Password reset email sent! Check your inbox.', 'success');
         } catch (error) {
             throw error;
@@ -192,7 +309,7 @@ class AuthManager {
 
     async createUserProfile(userId, userData) {
         try {
-            await db.collection('users').doc(userId).set({
+            await set(doc(db, 'users', userId), {
                 ...userData,
                 cycles: [],
                 settings: {
@@ -208,8 +325,9 @@ class AuthManager {
 
     async getUserData(userId) {
         try {
-            const doc = await db.collection('users').doc(userId).get();
-            return doc.exists ? doc.data() : null;
+            const docRef = doc(db, 'users', userId);
+            const docSnap = await get(docRef);
+            return docSnap.exists ? docSnap.data() : null;
         } catch (error) {
             console.error('Error getting user data:', error);
             return null;
