@@ -73,15 +73,12 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0;
-  padding: 0 5%;
+  width: 100%;
+  padding: 0 2rem;
 }
 
 .logo-container {
-  display: flex;
-  justify-content: space-between; /* Adjust as needed */
-  align-items: center;
-  gap: 20px; /* Space between logos */
+  margin-right: auto; /* Push logo to the left */
 }
 
 .logo-wrapper {
@@ -103,13 +100,12 @@ body {
 
 /* Desktop Navigation */
 .desktop-nav {
-  display: block;
+  margin-left: auto; /* Push navigation to the right */
 }
 
 .navbar-list {
   display: flex;
-  list-style: none;
-  gap: 30px;
+  gap: 40px;
   margin: 0;
   padding: 0;
 }
@@ -134,7 +130,10 @@ body {
   cursor: pointer;
   width: 30px;
   height: 24px;
-  position: relative;
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1000;
 }
 
@@ -576,18 +575,58 @@ input[type="text"]:focus {
   color: var(--primary-dark);
 }
 
-.history-list {
-  max-height: 300px;
-  overflow-y: auto;
-}
-
 .history-item {
+  background: var(--white);
+  border-radius: var(--border-radius);
   padding: 1rem;
-  border-bottom: 1px solid var(--gray);
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
 }
 
-.history-item:last-child {
-  border-bottom: none;
+.history-item:hover {
+  transform: translateY(-2px);
+}
+
+.history-date-range {
+  color: var(--primary-dark);
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.history-symptoms {
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.history-timestamp {
+  color: #666;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.history-list {
+  max-height: 400px;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.history-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.history-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+  background: var(--primary-light);
+  border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-dark);
 }
 
 /* Phase Recommendations */
@@ -810,33 +849,86 @@ input[type="text"]:focus {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
+  z-index: 2000;
+  overflow-y: auto;
+  padding: 2rem;
+}
+
+/* Add a separate backdrop div for the blur effect */
+.modal::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  z-index: -1;
 }
 
 .modal-content {
   position: relative;
   background: var(--white);
-  margin: 5% auto;
   padding: 2rem;
   width: 90%;
   max-width: 800px;
   border-radius: var(--border-radius);
-  max-height: 80vh;
-  overflow-y: auto;
+  margin: auto;
+  margin-top: 2rem;
+  z-index: 2001;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  /* Ensure modal content is clear */
+  backdrop-filter: none;
+  filter: none;
 }
 
 .close-modal {
   position: absolute;
-  right: 1rem;
   top: 1rem;
+  right: 1rem;
+  padding: 0.5rem;
   font-size: 2rem;
   cursor: pointer;
   color: var(--primary-dark);
+  z-index: 2002;
+  background: var(--white);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.close-modal:hover {
-  color: var(--primary-color);
+/* When modal is active */
+.modal.active {
+  display: block;
+}
+
+/* Remove any blur from the actual modal content */
+#resource-content {
+  background: var(--white);
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+/* Ensure other sections have lower z-index */
+.header {
+  z-index: 1000;
+}
+
+.navbar {
+  z-index: 1001;
+}
+
+.overlay {
+  z-index: 999;
+}
+
+.history-section {
+  z-index: 1;
+  position: relative;
 }
 
 /* Resource Content Styles */

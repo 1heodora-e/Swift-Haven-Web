@@ -34,6 +34,9 @@
     - preload images
   -->
     <link rel="preload" as="image" href="./assets/images/young-girls.jpeg" />
+
+    <!-- Firebase SDK -->
+    <script type="module" src="/js/firebase-config.js"></script>
   </head>
 
   <body>
@@ -49,48 +52,25 @@
           <div class="wrapper">
             <a href="#" class="logo">Swift Haven</a>
 
-            <button
-              class="nav-close-btn"
-              aria-label="close menu"
-              data-nav-toggler
-            >
+            <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
               <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
             </button>
           </div>
 
           <ul class="navbar-list">
-            <li>
-              <a href="#home" class="navbar-link" data-nav-link>Home</a>
-            </li>
-
-            <li>
-              <a href="#mission" class="navbar-link" data-nav-link>About</a>
-            </li>
-
-            <li>
-              <a href="/pages/tracker.html" class="navbar-link" data-nav-link>Tracker</a>
-            </li>
-            <li>
-              <a href="#Lola" class="navbar-link" data-nav-link>Meet Lola</a>
-            </li>
-            <!-- 
-            <li>
-              <a href="#donate" class="navbar-link" data-nav-link>Donate</a>
-            </li> -->
-
-            <li>
-              <a href="/pages/Contact.html" class="navbar-link" data-nav-link
-                >Contact Us</a
-              >
-            </li>
+            <li><a href="#home" class="navbar-link" data-nav-link>Home</a></li>
+            <li><a href="#mission" class="navbar-link" data-nav-link>About</a></li>
+            <li><a href="#" class="navbar-link" id="tracker-link" data-nav-link>Tracker</a></li>
+            <li><a href="#Lola" class="navbar-link" data-nav-link>Meet Lola</a></li>
+            <li><a href="/pages/Contact.html" class="navbar-link" data-nav-link>Contact Us</a></li>
           </ul>
         </nav>
 
         <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
-          <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+          <span class="line"></span>
+          <span class="line"></span>
+          <span class="line"></span>
         </button>
-        <!-- 
-        <a href="#donate" class="btn-outline">Donate</a> -->
 
         <div class="overlay" data-nav-toggler data-overlay></div>
       </div>
@@ -980,14 +960,44 @@
       </div>
     </footer>
 
-    <!-- 
-    - custom js link
-  -->
-    <script src="/js/script.js"></script>
+    <!-- Auth Check Script -->
+    <script type="module">
+      // Import Firebase functions
+      import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.5.0/firebase-auth.js";
+      
+      // Get tracker link element
+      const trackerLink = document.getElementById('tracker-link');
+      
+      // Add click event listener
+      trackerLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Check if user is authenticated
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (user) {
+          // User is signed in, redirect to tracker
+          window.location.href = '/pages/tracker.html';
+        } else {
+          // No user is signed in, redirect to auth page
+          window.location.href = '/pages/auth.html';
+        }
+      });
 
-    <!-- 
-    - ionicon link
-  -->
+      // Check authentication state on page load
+      const auth = getAuth();
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          // User is signed in
+          console.log('User is signed in:', user.email);
+        } else {
+          // No user is signed in
+          console.log('No user is signed in');
+        }
+      });
+    </script>
+
+    <!-- Ionicons -->
     <script
       type="module"
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"
@@ -997,6 +1007,44 @@
       src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"
     ></script>
 
-    <script></script>
+    <!-- Custom JS -->
+    <script src="./js/script.js"></script>
+
+    <!-- Add this before the closing body tag -->
+    <script>
+      // Mobile Navigation Toggle
+      const navTogglers = document.querySelectorAll("[data-nav-toggler]");
+      const navbar = document.querySelector("[data-navbar]");
+      const overlay = document.querySelector("[data-overlay]");
+
+      navTogglers.forEach(toggler => {
+        toggler.addEventListener("click", () => {
+          navbar.classList.toggle("active");
+          overlay.classList.toggle("active");
+          document.body.classList.toggle("nav-active");
+        });
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll('.mobile-navbar-list .navbar-link').forEach(link => {
+        link.addEventListener('click', () => {
+          navbar.classList.remove('active');
+          overlay.classList.remove('active');
+          document.body.classList.remove('nav-active');
+        });
+      });
+
+      // Handle mobile tracker link
+      document.getElementById('mobile-tracker-link').addEventListener('click', (e) => {
+        e.preventDefault();
+        const auth = getAuth();
+        const user = auth.currentUser;
+        if (user) {
+          window.location.href = '/pages/tracker.html';
+        } else {
+          window.location.href = '/pages/auth.html';
+        }
+      });
+    </script>
   </body>
 </html>

@@ -388,3 +388,20 @@ document.addEventListener('DOMContentLoaded', () => {
         new CycleWise();
     }
 });
+
+// Add this to handle logout across all pages
+document.addEventListener('DOMContentLoaded', () => {
+  const logoutLink = document.getElementById('logout-link');
+  if (logoutLink) {
+    logoutLink.addEventListener('click', async (e) => {
+      e.preventDefault();
+      try {
+        const auth = firebase.auth();
+        await auth.signOut();
+        window.location.href = '/pages/auth.html';
+      } catch (error) {
+        console.error('Error signing out:', error);
+      }
+    });
+  }
+});
