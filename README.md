@@ -1,15 +1,28 @@
-# SWIFT-HAVEN WEBSITE
+# SWIFT-HAVEN WEBSITE (Cycle-Wise)
 
-# LIVE: https://swift-haven.vercel.app/
+# LIVE: https://swift-haven-web.vercel.app/ ........navigate to the tracker page and create an account
 
-Swift Haven is a social enterprise based in Rwanda, and currently focuses on the FEMTECH sector, swift-haven website serves as a platform to provide educational knowledge, and period resources to young girls and women across Africa to help battle the issue of period poverty
+CycleWise a feauture in the Swift-Haven Website - directly addresses the need for accessible and comprehensive menstrual health education, empowering women and girls to make informed decisions about their health and well-being. It also addresses the gap in personalized advice related to the four phases of the menstrual cycle, providing tailored recommendations based on individual user data and reported symptoms.
+
 
 ## Features
 
-- AI period tracker
-- Access to Newsletter to send weekly educational and resourceful period contents
-- Contact section to reach us with complaints and contributions
-- Access to out partner companies and their portfolio, and more resources
+### Main Website Features
+- Educational resources about period poverty
+- Weekly newsletter subscription for period-related content
+- Contact section for complaints and contributions
+- Partner companies showcase and portfolio
+- Impact showcase and mission statement
+- Mobile-responsive design
+
+### CycleWise Feature
+CycleWise is our AI-powered period tracking system integrated into the Swift Haven website. Features include:
+- Secure user authentication
+- Interactive period tracking calendar
+- Symptom logging and monitoring
+- Educational resources about menstrual phases
+- Personal history tracking
+- Mobile-friendly interface
 
 ## Technologies Used
 
@@ -19,7 +32,9 @@ Swift Haven is a social enterprise based in Rwanda, and currently focuses on the
 
 ## Screenshots
 
-<img width="960" alt="image" src="/assets/images/swift.png">
+<img width="960" alt="image" src="/assets/images/Cyclewise-1.png">
+<img width="960" alt="image" src="/assets/images/cycle-wise2.png">
+<img width="960" alt="image" src="/assets/images/cycle-wise-3.png">
 
 ## Getting Started
 
@@ -28,7 +43,7 @@ To run the swift-haven website locally, follow these steps:
 1. **Clone the repository**:
 
 ```bash
-git clone https://github.com/Chidera0001/Swift-Haven-Web.git
+git clone https://github.com/1heodora-e/Swift-Haven-Web
 ```
 
 2.  **Open your IDE (Vs Code), and Navigate to the project directory**:
