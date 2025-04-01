@@ -211,13 +211,15 @@ class CycleWise {
       const nextPeriod = new Date(lastPeriod);
       nextPeriod.setDate(nextPeriod.getDate() + cycleLength);
 
-      // Calculate ovulation (typically 14 days before the next period)
-      const ovulationDate = new Date(nextPeriod);
-      ovulationDate.setDate(ovulationDate.getDate() - 14);
+      // Calculate ovulation window (typically days 11-16 of the cycle)
+      const ovulationStart = new Date(lastPeriod);
+      ovulationStart.setDate(ovulationStart.getDate() + 11);
+      const ovulationEnd = new Date(lastPeriod);
+      ovulationEnd.setDate(ovulationEnd.getDate() + 16);
 
       this.updatePredictionText('next-period', this.formatDate(nextPeriod));
       this.updatePredictionText('cycle-length', `${cycleLength} days`);
-      this.updatePredictionText('ovulation-date', this.formatDate(ovulationDate));
+      this.updatePredictionText('ovulation-date', `${this.formatDate(ovulationStart)} - ${this.formatDate(ovulationEnd)}`);
   }
 
   updatePredictionText(elementId, text) {
@@ -309,32 +311,19 @@ class CycleWise {
       
       const lastPeriod = new Date(lastCycle.startDate);
       
-      // Calculate average cycle length if we have enough data
-      let cycleLength = 28; // Default to 28 days
-      
-      if (this.cycles.length >= 2) {
-          const cycleLengths = [];
-          for (let i = 1; i < this.cycles.length; i++) {
-              const days = Math.round((new Date(this.cycles[i].startDate) - new Date(this.cycles[i-1].startDate)) / (1000 * 60 * 60 * 1000 * 24));
-              if (days > 0 && days < 60) { // Only consider reasonable cycle lengths
-                  cycleLengths.push(days);
-              }
-          }
-          
-          if (cycleLengths.length > 0) {
-              cycleLength = Math.round(cycleLengths.reduce((a, b) => a + b) / cycleLengths.length);
-          }
-      }
-      
-      // Calculate ovulation date (approximately 14 days before the next period)
-      const ovulationDate = new Date(lastPeriod);
-      ovulationDate.setDate(ovulationDate.getDate() + Math.round(cycleLength / 2) - 2); // Adjusted to be more accurate
+      // Calculate ovulation window (days 11-16 of the cycle)
+      const ovulationStart = new Date(lastPeriod);
+      ovulationStart.setDate(ovulationStart.getDate() + 11);
+      const ovulationEnd = new Date(lastPeriod);
+      ovulationEnd.setDate(ovulationEnd.getDate() + 16);
       
       // Normalize dates for comparison
       const normalizedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-      const normalizedOvulation = new Date(ovulationDate.getFullYear(), ovulationDate.getMonth(), ovulationDate.getDate());
+      const normalizedStart = new Date(ovulationStart.getFullYear(), ovulationStart.getMonth(), ovulationStart.getDate());
+      const normalizedEnd = new Date(ovulationEnd.getFullYear(), ovulationEnd.getMonth(), ovulationEnd.getDate());
       
-      return normalizedDate.getTime() === normalizedOvulation.getTime();
+      // Check if date falls within ovulation window
+      return normalizedDate >= normalizedStart && normalizedDate <= normalizedEnd;
   }
 
   formatListToHtml(text) {
