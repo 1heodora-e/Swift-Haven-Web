@@ -184,39 +184,51 @@
       <section class="education-section animate slide-in-left">
         <h6>Learn About Your Cycle</h6>
         <div class="phase-container">
-          <div class="phase-box">
-            <div class="phase-icon"><i class="fas fa-tint"></i></div>
-            <div class="phase-name">Menstrual Phase</div>
-            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
-            <div class="dropdown-content" style="display: none; text-align: justify;">
-              <p>The menstrual phase is the first stage of the menstrual cycle. It's also when you get your period. This phase starts when an egg from the previous cycle isn't fertilized. Because pregnancy hasn't taken place, levels of the hormones estrogen and progesterone drop. Thickened lining of your uterus, which would support a pregnancy, is no longer needed, so it sheds through your vagina. During your period, you shed a combination of blood, mucus, and tissue from your uterus.</p>
+          <div class="phase-box" data-phase="menstrual">
+            <div class="phase-header">
+              <div class="phase-icon">
+                <i class="fas fa-tint"></i>
+              </div>
+              <h3 class="phase-title">Menstrual Phase</h3>
+            </div>
+            <div class="phase-content">
+              <p>The menstrual phase is the first stage of the menstrual cycle. It's also when you get your period. This phase starts when an egg from the previous cycle isn't fertilized. Because pregnancy hasn't taken place, levels of the hormones estrogen and progesterone drop. Thickened lining of your uterus, which would support a pregnancy, is no longer needed, so it sheds through your vagina.</p>
             </div>
           </div>
-        
-          <div class="phase-box">
-            <div class="phase-icon"><i class="fas fa-seedling"></i></div>
-            <div class="phase-name">Follicular Phase</div>
-            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
-            <div class="dropdown-content" style="display: none; text-align: justify;">
-              <p>The follicular phase starts on the first day of your period (so there is some overlap with the menstrual phase) and ends when you ovulate. It starts when the hypothalamus sends a signal to your pituitary gland to release follicle-stimulating hormone (FSH). This hormone stimulates your ovaries to produce around 5 to 20 small sacs called follicles. Each follicle contains an immature egg. Only the healthiest egg will eventually mature. (On rare occasions, a woman may have two eggs mature.) The rest of the follicles will be reabsorbed into your body. The maturing follicle sets off a surge in estrogen that thickens the lining of your uterus. This creates a nutrient-rich environment for an embryo to grow.</p>
+
+          <div class="phase-box" data-phase="follicular">
+            <div class="phase-header">
+              <div class="phase-icon">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <h3 class="phase-title">Follicular Phase</h3>
+            </div>
+            <div class="phase-content">
+              <p>The follicular phase starts on the first day of your period and ends when you ovulate. It starts when the hypothalamus sends a signal to your pituitary gland to release follicle-stimulating hormone (FSH). This hormone stimulates your ovaries to produce around 5 to 20 small sacs called follicles. Each follicle contains an immature egg.</p>
             </div>
           </div>
-        
-          <div class="phase-box">
-            <div class="phase-icon"><i class="fas fa-egg"></i></div>
-            <div class="phase-name">Ovulation Phase</div>
-            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
-            <div class="dropdown-content" style="display: none; text-align: justify;">
-              <p>Rising estrogen levels during the follicular phase trigger your pituitary gland to release luteinizing hormone (LH). This is what starts the process of ovulation. Ovulation occurs when your ovary releases a mature egg. The egg travels down the fallopian tube toward the uterus to be fertilized by sperm. The ovulation phase is the only time during your menstrual cycle when you can get pregnant. You can tell that you're ovulating by symptoms like these: a slight rise in basal body temperature, thicker discharge that has the texture of egg whites.</p>
+
+          <div class="phase-box" data-phase="ovulation">
+            <div class="phase-header">
+              <div class="phase-icon">
+                <i class="fas fa-egg"></i>
+              </div>
+              <h3 class="phase-title">Ovulation Phase</h3>
+            </div>
+            <div class="phase-content">
+              <p>Rising estrogen levels during the follicular phase trigger your pituitary gland to release luteinizing hormone (LH). This is what starts the process of ovulation. Ovulation occurs when your ovary releases a mature egg. The egg travels down the fallopian tube toward the uterus to be fertilized by sperm.</p>
             </div>
           </div>
-        
-          <div class="phase-box">
-            <div class="phase-icon"><i class="fas fa-moon"></i></div>
-            <div class="phase-name">Luteal Phase</div>
-            <button class="dropdown-btn"><i class="fas fa-chevron-down"></i></button>
-            <div class="dropdown-content" style="display: none; text-align: justify;">
-              <p>After the follicle releases its egg, it changes into the corpus luteum. This structure releases hormones, mainly progesterone and some estrogen. The rise in hormones keeps your uterine lining thick and ready for a fertilized egg to implant. If you do get pregnant, your body will produce human chorionic gonadotropin (hCG). This is the hormone pregnancy tests detect. It helps maintain the corpus luteum and keeps the uterine lining thick. If you don't get pregnant, the corpus luteum will shrink away and be resorbed. This leads to decreased levels of estrogen and progesterone, which causes the onset of your period. The uterine lining will shed during your period.</p>
+
+          <div class="phase-box" data-phase="luteal">
+            <div class="phase-header">
+              <div class="phase-icon">
+                <i class="fas fa-moon"></i>
+              </div>
+              <h3 class="phase-title">Luteal Phase</h3>
+            </div>
+            <div class="phase-content">
+              <p>After the follicle releases its egg, it changes into the corpus luteum. This structure releases hormones, mainly progesterone and some estrogen. The rise in hormones keeps your uterine lining thick and ready for a fertilized egg to implant. If you don't get pregnant, the corpus luteum will shrink away and be resorbed.</p>
             </div>
           </div>
         </div>
@@ -295,42 +307,37 @@
     </div>
   </div>
   <script>
-    document.querySelectorAll('.dropdown-btn').forEach(button => {
-      button.addEventListener('click', function() {
-        // Close all dropdowns
-        document.querySelectorAll('.dropdown-content').forEach(content => {
-          content.classList.remove('show');
-        });
-        
-        // Toggle the clicked dropdown
-        let content = this.nextElementSibling;
-        content.classList.toggle('show');
-      });
-    });
-  </script>
-  <script>
-    document.querySelectorAll('.phase-box').forEach(box => {
-      const button = box.querySelector('.dropdown-btn');
-      const details = box.querySelector('.dropdown-content');
-
-      button.addEventListener('click', () => {
-        // Close all other dropdowns
-        document.querySelectorAll('.dropdown-content').forEach(detail => {
-          if (detail !== details) {
-            detail.style.display = 'none';
-            detail.previousElementSibling.classList.remove('inverted');
+    function setupPhaseBoxes() {
+      const phaseBoxes = document.querySelectorAll('.phase-box');
+      
+      phaseBoxes.forEach(box => {
+        box.addEventListener('click', () => {
+          // Close other boxes
+          phaseBoxes.forEach(otherBox => {
+            if (otherBox !== box && otherBox.classList.contains('expanded')) {
+              otherBox.classList.remove('expanded');
+            }
+          });
+          
+          // Toggle current box
+          box.classList.toggle('expanded');
+          
+          // Scroll into view if needed
+          if (box.classList.contains('expanded')) {
+            const boxRect = box.getBoundingClientRect();
+            const isVisible = (boxRect.top >= 0) && (boxRect.bottom <= window.innerHeight);
+            
+            if (!isVisible) {
+              box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
           }
         });
-
-        // Toggle the current dropdown
-        if (details.style.display === 'block') {
-          details.style.display = 'none';
-          button.classList.remove('inverted');
-        } else {
-          details.style.display = 'block';
-          button.classList.add('inverted');
-        }
       });
+    }
+
+    // Initialize when the document is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      setupPhaseBoxes();
     });
   </script>
   <script src="/js/script.js"></script>
