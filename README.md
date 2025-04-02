@@ -1,34 +1,35 @@
 # SWIFT-HAVEN WEBSITE (Cycle-Wise)
 
-# LIVE: https://swift-haven-web.vercel.app/ ........navigate to the tracker page and create an account
+# Live Version: https://swift-haven-web.vercel.app/ 
+To access CycleWise: Navigate to the "Tracker" page and create an account.
 
-CycleWise a feauture in the Swift-Haven Website - directly addresses the need for accessible and comprehensive menstrual health education, empowering women and girls to make informed decisions about their health and well-being. It also addresses the gap in personalized advice related to the four phases of the menstrual cycle, providing tailored recommendations based on individual user data and reported symptoms.
+CycleWise is a period tracker integrated into the Swift Haven website. It provides accessible and comprehensive menstrual health education, empowering women and girls to make informed decisions about their health and well-being. It also addresses the gap in personalized advice related to the four phases of the menstrual cycle, providing tailored recommendations based on individual user data and reported symptoms.
 
 
-## Features
+Key Features
 
-### Main Website Features
+Main Website Features
 - Educational resources about period poverty
 - Weekly newsletter subscription for period-related content
-- Contact section for complaints and contributions
-- Partner companies showcase and portfolio
-- Impact showcase and mission statement
+- Contact section for feedback and contributions
+- Showcase of partner companies and their impact
+- Mission statement and impact tracking
 - Mobile-responsive design
 
-### CycleWise Feature
-CycleWise is our AI-powered period tracking system integrated into the Swift Haven website. Features include:
-- Secure user authentication
+CycleWise Features
+- Secure user authentication (Signup/Login)
 - Interactive period tracking calendar
 - Symptom logging and monitoring
-- Educational resources about menstrual phases
+- Educational resources on menstrual cycle phases
+- Personalized recommendations for different cycle phases
 - Personal history tracking
 - Mobile-friendly interface
 
-## Technologies Used
+Technologies Used
 
-- HTML
-- CSS
-- JavaScript
+- Front-End: HTML, CSS, JavaScript
+- Hosting: Vercel
+- Version Control: Git/GitHub
 
 ## Screenshots
 
